@@ -1,0 +1,21 @@
+
+package com.example.MokshaMarg.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Entity
+@Data
+public class Image {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long imageId;
+
+	private String url;
+	private Long entityId; // Can refer to Dish, Restaurant, or Guide
+	private String entityType; // 'Dish', 'Restaurant', 'Guide'
+}
