@@ -5,9 +5,12 @@ import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.LoginApiResponse;
 
 public interface AuthenticationService {
-	
+
 	public AbstractApiResponse register(User user);
-	
+
 	public LoginApiResponse login(User user);
 
+	public AbstractApiResponse sendOtp(User user);
+
+	public void resetPassword(User user);
 }

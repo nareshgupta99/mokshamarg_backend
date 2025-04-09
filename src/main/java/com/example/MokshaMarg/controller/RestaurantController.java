@@ -26,53 +26,59 @@ import com.example.MokshaMarg.service.RestaurantService;
 @RequestMapping("/api/v1/restaurant")
 public class RestaurantController {
 
-    @Autowired
-    private RestaurantService restaurantService;
+	@Autowired
+	private RestaurantService restaurantService;
 
-    // Create
-    @PostMapping(value = "/register", consumes = "multipart/form-data")
-    public ResponseEntity<AbstractApiResponse> registerRestaurant(
-            @RequestPart("restaurant") String restaurant,
-            @RequestPart(value = "image", required = false) MultipartFile imageFile
-    ) {
+	// Create
+	@PostMapping(value = "/register", consumes = "multipart/form-data")
+	public ResponseEntity<AbstractApiResponse> registerRestaurant(@RequestPart("restaurant") String restaurant,
+			@RequestPart(value = "image", required = false) MultipartFile imageFile) {
 
-    	System.out.println(restaurant);
-    	System.out.println(imageFile.getOriginalFilename()); 	
-    
-    return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+		restaurantService.registerRestaurant(restaurant, imageFile);
+//		System.out.println(restaurant);
+//		System.out.println(imageFile.getOriginalFilename());
 
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
 
-    // Read All
-    @GetMapping
-    public ResponseEntity<List<Restaurant>> getAllRestaurants() {
-        return new ResponseEntity<>(restaurantService.getAllRestaurants(), HttpStatus.OK);
-    }
+	// Read All
+	@GetMapping
+	public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+		return new ResponseEntity<>(restaurantService.getAllRestaurants(), HttpStatus.OK);
+	}
 
-    // Read By ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable Long id) {
-        Restaurant restaurant = restaurantService.getRestaurantById(id);
-        return restaurant != null
-                ? new ResponseEntity<>(restaurant, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+	// Read By ID
+	@GetMapping("/{id}")
+	public ResponseEntity<Restaurant> getRestaurantById(@PathVariable Long id) {
+		Restaurant restaurant = restaurantService.getRestaurantById(id);
+		return restaurant != null ? new ResponseEntity<>(restaurant, HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
 
-    // Update
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<AbstractApiResponse> updateRestaurant(@PathVariable Long id, @RequestBody Restaurant updatedRestaurant) {
-        AbstractApiResponse response = restaurantService.updateRestaurant(id, updatedRestaurant);
-        return response.isStatus()
-                ? new ResponseEntity<>(response, HttpStatus.OK)
-                : new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
+	// Update
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<AbstractApiResponse> updateRestaurant(@PathVariable Long id,
+			@RequestBody Restaurant updatedRestaurant) {
+		AbstractApiResponse response = restaurantService.updateRestaurant(id, updatedRestaurant);
+		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)
+				: new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
 
-    // Delete
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<AbstractApiResponse> deleteRestaurant(@PathVariable Long id) {
-        AbstractApiResponse response = restaurantService.deleteRestaurant(id);
-        return response.isStatus()
-                ? new ResponseEntity<>(response, HttpStatus.OK)
-                : new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
+	// Delete
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<AbstractApiResponse> deleteRestaurant(@PathVariable Long id) {
+		AbstractApiResponse response = restaurantService.deleteRestaurant(id);
+		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)
+				: new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping("/update/opening-status/{id}")
+	public ResponseEntity<AbstractApiResponse> updateRestaurentUpdateStatus(@PathVariable Long id) {
+		AbstractApiResponse response = restaurantService.deleteRestaurant(id);
+		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)
+				: new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+
+	}
+	
+
 }

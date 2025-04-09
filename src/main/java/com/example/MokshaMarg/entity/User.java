@@ -1,5 +1,7 @@
 package com.example.MokshaMarg.entity;
 
+import java.time.LocalTime;
+
 import com.example.MokshaMarg.util.OtpType;
 import com.example.MokshaMarg.util.RoleName;
 
@@ -45,5 +47,7 @@ public class User {
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Restaurant restaurantOwnerProfile;
+	
+	private LocalTime expiryTime;
 
 }

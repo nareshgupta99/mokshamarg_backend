@@ -2,16 +2,20 @@ package com.example.MokshaMarg.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
-
 
 @Entity
 @Data
@@ -23,16 +27,23 @@ public class Restaurant {
 
 	private String name;
 	private String address;
-	private boolean isOpen;
+	private boolean open;
 	private String openingTime;
 	private String closeTime;
 	private String latitude;
 	private String longitude;
-	
+	private String image;
+	private String startingPrice;
+
 	@OneToOne
 	private User user;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Dish> dishes; 
+
+	private List<Dish> dishes;
+
+	@ManyToMany
+	@JoinTable(name = "restaurant_food_types", joinColumns = @JoinColumn(name = "restaurant_id"), inverseJoinColumns = @JoinColumn(name = "food_type_id"))
+	private List<FoodType> foodTypes;
 
 }

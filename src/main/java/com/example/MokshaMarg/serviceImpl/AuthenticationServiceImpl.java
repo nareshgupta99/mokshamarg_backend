@@ -1,5 +1,6 @@
 package com.example.MokshaMarg.serviceImpl;
 
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -16,7 +17,6 @@ import com.example.MokshaMarg.repository.UserRepository;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.LoginApiResponse;
 import com.example.MokshaMarg.service.AuthenticationService;
-import com.example.MokshaMarg.util.StatusType;
 
 @Service	
 public class AuthenticationServiceImpl implements AuthenticationService{
@@ -76,6 +76,53 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		return response;
 	
 	}
+	
+	
+	public AbstractApiResponse sendOtp(User user) {
+		 Optional<User> optionalUser = userRepo.findByEmail(user.getEmail());
+		    if (optionalUser.isEmpty()) {
+		    	throw new UsernameNotFoundException("emails is not registerd");
+		    }
+		    User saveduser = optionalUser.get();
+		   int otp = (int) (Math.random() * 10000) ;
+		   System.out.println("otp == "+  otp );
+		   LocalTime now=LocalTime.now();
+		   LocalTime expiry =now.plusMinutes(2);
+		   saveduser.setExpiryTime(expiry);
+		   saveduser.setOtp(otp);
+		   userRepo.save(saveduser);
+		   return new AbstractApiResponse(true,"otp sent successfully",Collections.emptyMap());
+	}
+	
+	public void verifyOtp(User user) {
+		 Optional<User> optionalUser = userRepo.findByEmail(user.getEmail());
+		    if (optionalUser.isEmpty()) {
+		    	throw new UsernameNotFoundException("emails is not registerd");
+		    }
+		    User saveduser = optionalUser.get();
+		   LocalTime expiry =saveduser.getExpiryTime();
+		   LocalTime now=LocalTime.now();
+		   if (now.isAfter(expiry)) {
+			    System.out.println("expiry");
+			} else {
+			    System.out.println("Outside working hours.");
+			}
+		   userRepo.save(saveduser);
+	}
+	
+	public void resetPassword(User user) {
+		 Optional<User> optionalUser = userRepo.findByEmail(user.getEmail());
+		    if (optionalUser.isEmpty()) {
+		    	throw new UsernameNotFoundException("emails is not registerd");
+		    }
+		    User saveduser = optionalUser.get();
+		    String encodedPassword=passwordEncoder.encode(user.getPassword());
+		    saveduser.setPassword(encodedPassword);
+		    userRepo.save(saveduser);
+		
+	}
+	
+
 	
 	
 	

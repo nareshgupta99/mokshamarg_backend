@@ -23,7 +23,7 @@ public class Review {
 	private Long entityId; // Can be Guide, Restaurant, or Hotel
 	private String entityType; // 'Guide', 'Restaurant', 'Hotel'
 
-	private Integer rating;
+	private Integer rating =0;
 	private String reviewText;
 	private String createdAt;
 }

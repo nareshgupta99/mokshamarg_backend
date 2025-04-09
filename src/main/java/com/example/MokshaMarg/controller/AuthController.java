@@ -45,4 +45,35 @@ public class AuthController {
 			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@PostMapping("/sendOtp")
+	public ResponseEntity<AbstractApiResponse> sendOtp(@RequestBody User user) {
+		AbstractApiResponse apiResponse = authService.sendOtp(user);
+		if (apiResponse.isStatus()) {
+			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PostMapping("/verifyOtp")
+	public ResponseEntity<AbstractApiResponse> verifyOtp(@RequestBody User user) {
+		AbstractApiResponse apiResponse = authService.register(user);
+		if (apiResponse.isStatus()) {
+			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PostMapping("/resetPassword")
+	public ResponseEntity<AbstractApiResponse> resetPassword(@RequestBody User user) {
+		AbstractApiResponse apiResponse = authService.register(user);
+		if (apiResponse.isStatus()) {
+			return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 }
