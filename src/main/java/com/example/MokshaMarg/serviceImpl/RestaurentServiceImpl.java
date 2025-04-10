@@ -13,16 +13,19 @@ import com.example.MokshaMarg.entity.Restaurant;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.service.RestaurantService;
 import com.example.MokshaMarg.util.CloudinaryUploader;
+import com.example.MokshaMarg.util.EmailDetails;
+import com.example.MokshaMarg.util.MailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import lombok.experimental.var;
 
 @Service
 public class RestaurentServiceImpl implements RestaurantService {
 	
 	@Autowired
 	private CloudinaryUploader cloudinaryUploader;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public AbstractApiResponse registerRestaurant(String restaurantjson, MultipartFile imageFile) {
@@ -34,6 +37,7 @@ public class RestaurentServiceImpl implements RestaurantService {
 //			System.out.println(imageFile.getOriginalFilename());
 			Map<String,String> resp= cloudinaryUploader.uploadFile(imageFile);
 			System.out.println(resp.get("url"));
+			mailService.sendSimpleMail(new EmailDetails("nareshgupta0899@gmail.com","testing","test", "" ));
 			
 			
 		} catch (JsonProcessingException e) {

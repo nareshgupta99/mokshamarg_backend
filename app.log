@@ -1,0 +1,6 @@
+2025-04-11T00:33:51.763+05:30  INFO 10868 --- [MokshaMarg] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2025-04-11T00:33:51.793+05:30  INFO 10868 --- [MokshaMarg] [Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-04-11T00:33:51.824+05:30  INFO 10868 --- [MokshaMarg] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-04-11T00:33:51.830+05:30  INFO 10868 --- [MokshaMarg] [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-04-11T00:33:51.831+05:30  INFO 10868 --- [MokshaMarg] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2025-04-11T00:33:51.854+05:30  INFO 10868 --- [MokshaMarg] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
