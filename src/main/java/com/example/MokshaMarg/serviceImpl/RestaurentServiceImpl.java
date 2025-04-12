@@ -28,7 +28,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
-import lombok.experimental.PackagePrivate;
 
 @Service
 public class RestaurentServiceImpl implements RestaurantService {

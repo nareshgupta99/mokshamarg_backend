@@ -49,5 +49,8 @@ public class User {
 	private Restaurant restaurantOwnerProfile;
 	
 	private LocalTime expiryTime;
+//	
+//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+//	private Cart cart;
 
 }

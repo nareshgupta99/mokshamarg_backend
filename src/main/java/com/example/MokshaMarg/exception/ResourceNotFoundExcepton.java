@@ -9,5 +9,10 @@ public class ResourceNotFoundExcepton extends RuntimeException {
 	
 	String id;
 	String message;
+	
+	ResourceNotFoundExcepton(){
+
+		super("message");
+	}
 
 }
