@@ -10,10 +10,10 @@ public class AbstractApiResponse<T> {
     private String message;
     private T data;
 
-    public AbstractApiResponse(boolean status, String message, T data) {
+    public AbstractApiResponse(boolean status, String message, T dishResponse) {
         this.status = status;
         this.message = message;
-        this.data = data;
+        this.data = dishResponse;
     }
 
   

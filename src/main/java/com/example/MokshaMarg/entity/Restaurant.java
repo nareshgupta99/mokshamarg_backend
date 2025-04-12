@@ -33,13 +33,15 @@ public class Restaurant {
 	private String latitude;
 	private String longitude;
 	private String image;
+	private String publicId;
 	private String startingPrice;
 
 	@OneToOne
+	@JsonIgnore
 	private User user;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-
+	@JsonIgnore
 	private List<Dish> dishes;
 
 	@ManyToMany

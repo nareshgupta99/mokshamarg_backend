@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.MokshaMarg.entity.Restaurant;
 import com.example.MokshaMarg.response.AbstractApiResponse;
+import com.example.MokshaMarg.response.RestaurentResponse;
 import com.example.MokshaMarg.service.RestaurantService;
 
 @CrossOrigin(origins = "*")
@@ -29,56 +30,50 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 
-	// Create
 	@PostMapping(value = "/register", consumes = "multipart/form-data")
-	public ResponseEntity<AbstractApiResponse> registerRestaurant(@RequestPart("restaurant") String restaurant,
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> registerRestaurant(
+			@RequestPart("restaurant") String restaurant,
 			@RequestPart(value = "image", required = false) MultipartFile imageFile) {
 
-		restaurantService.registerRestaurant(restaurant, imageFile);
-//		System.out.println(restaurant);
-//		System.out.println(imageFile.getOriginalFilename());
+		AbstractApiResponse<RestaurentResponse> response = restaurantService.registerRestaurant(restaurant, imageFile);
 
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
-	// Read All
-	@GetMapping
-	public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+	@GetMapping("")
+	public ResponseEntity<AbstractApiResponse<List<RestaurentResponse>>> getAllRestaurants() {
 		return new ResponseEntity<>(restaurantService.getAllRestaurants(), HttpStatus.OK);
 	}
 
-	// Read By ID
 	@GetMapping("/{id}")
-	public ResponseEntity<Restaurant> getRestaurantById(@PathVariable Long id) {
-		Restaurant restaurant = restaurantService.getRestaurantById(id);
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> getRestaurantById(@PathVariable Long id) {
+		AbstractApiResponse<RestaurentResponse> restaurant = restaurantService.getRestaurantById(id);
 		return restaurant != null ? new ResponseEntity<>(restaurant, HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
-	// Update
-	@PutMapping("/edit/{id}")
-	public ResponseEntity<AbstractApiResponse> updateRestaurant(@PathVariable Long id,
+	@PutMapping("/update/{id}")
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> updateRestaurant(@PathVariable Long id,
 			@RequestBody Restaurant updatedRestaurant) {
-		AbstractApiResponse response = restaurantService.updateRestaurant(id, updatedRestaurant);
+		AbstractApiResponse<RestaurentResponse> response = restaurantService.updateRestaurant(id, updatedRestaurant);
 		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)
 				: new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	// Delete
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<AbstractApiResponse> deleteRestaurant(@PathVariable Long id) {
-		AbstractApiResponse response = restaurantService.deleteRestaurant(id);
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> deleteRestaurant(@PathVariable Long id) {
+		AbstractApiResponse<RestaurentResponse> response = restaurantService.deleteRestaurant(id);
 		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)
 				: new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/update/opening-status/{id}")
-	public ResponseEntity<AbstractApiResponse> updateRestaurentUpdateStatus(@PathVariable Long id) {
-		AbstractApiResponse response = restaurantService.deleteRestaurant(id);
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> updateRestaurentUpdateStatus(@PathVariable Long id,
+			@RequestBody Restaurant restaurant) {
+		AbstractApiResponse<RestaurentResponse> response = restaurantService.updateRestaurentUpdateStatus( restaurant.isOpen(),id);
 		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)
 				: new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 
 	}
-	
 
 }
