@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.MokshaMarg.entity.FoodType;
 import com.example.MokshaMarg.repository.FoodTypeRepository;
 import com.example.MokshaMarg.service.FoodTypeService;
 import com.example.MokshaMarg.util.FoodTypeEnum;
@@ -18,10 +19,16 @@ public class FoodTypeServiceImpl implements FoodTypeService{
 
 	@Override
 	public void saveAllFoodType() {
-		List<String> foodType=new ArrayList<>();
-		foodType.add(FoodTypeEnum.VEG.name());
-		foodType.add(FoodTypeEnum.NON_VEG.name());
+		FoodType food1=new FoodType();
+		food1.setName(FoodTypeEnum.VEG.name());
+		FoodType food2=new FoodType();
+		food2.setName(FoodTypeEnum.NON_VEG.name());
+		
+//		foodTypeRepository.save(food1);
+//		foodTypeRepository.save(food2);
 	}
+	
+	
 	
 
 }

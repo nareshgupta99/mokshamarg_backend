@@ -14,6 +14,7 @@ import com.example.MokshaMarg.configuration.JwtUtil;
 import com.example.MokshaMarg.dto.UserDto;
 import com.example.MokshaMarg.entity.User;
 import com.example.MokshaMarg.exception.InvalidCredentialsException;
+import com.example.MokshaMarg.repository.RestaurentRepository;
 import com.example.MokshaMarg.repository.UserRepository;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.LoginApiResponse;
@@ -34,6 +35,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private RestaurentRepository restaurentRepository;
 	
 
 	@Override
@@ -65,7 +69,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	    	throw new InvalidCredentialsException("password is does not match");
 	    }
 	    
-
+	    
 		String token = jwtUtil.generateToken(loginRequest.getEmail(), user.getRole());
 		LoginApiResponse response	=new LoginApiResponse();
 		response.setName(user.getName());
@@ -73,6 +77,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		response.setToken(token);
 		response.setRoles(user.getRole().name());
 		response.setUserId(user.getUserId());
+		response.setRestaurentAdded(user.getRestaurantOwnerProfile() !=null ? true :false);
+		if(user.getRestaurantOwnerProfile() !=null) {
+			response.setRestaurantId(user.getRestaurantOwnerProfile().getRestaurantId()+"");
+		}
+		//		response.setGuideAdded(user.getGuideProfile() !=null ? true :false);
 		return response;
 	
 	}

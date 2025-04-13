@@ -54,7 +54,7 @@ public class User {
 	
 	private LocalTime expiryTime;
 
-//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//	private FoodCart cart;
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private FoodCart cart;
 
 }

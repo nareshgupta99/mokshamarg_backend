@@ -19,7 +19,6 @@ public class RestaurantDto {
 	private String closeTime;
 	private String latitude;
 	private String longitude;
-	private String image;
 	private String publicId;
 	private String startingPrice;
 	private List<String> foodTypes = new ArrayList<>();

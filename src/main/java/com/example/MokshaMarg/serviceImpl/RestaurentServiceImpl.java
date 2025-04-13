@@ -1,5 +1,6 @@
 package com.example.MokshaMarg.serviceImpl;
 
+import java.awt.print.Printable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class RestaurentServiceImpl implements RestaurantService {
 			restaurant.setLongitude(restaurantDto.getLongitude());
 			restaurant.setName(restaurantDto.getName());
 
-			// Upload image
+//			 Upload image
 			@SuppressWarnings("unchecked")
 			Map<String, String> resp = cloudinaryUploader.uploadFile(imageFile);
 			restaurant.setImage(resp.get("url"));
@@ -99,6 +100,7 @@ public class RestaurentServiceImpl implements RestaurantService {
 		} catch (IOException e) {
 			throw new RuntimeException("Image upload failed: " + e.getMessage());
 		} catch (Exception e) {
+			System.out.println(e);
 			throw new RuntimeException("Something went wrong during registration: " + e.getMessage());
 		}
 

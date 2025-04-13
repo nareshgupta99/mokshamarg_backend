@@ -40,6 +40,7 @@ public class Restaurant {
 
 	@OneToOne
 	@JsonBackReference("user_restaurant")
+	@JsonIgnore
 	private User user;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
