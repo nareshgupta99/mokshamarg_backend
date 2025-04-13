@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.MokshaMarg.configuration.JwtUtil;
+import com.example.MokshaMarg.dto.UserDto;
 import com.example.MokshaMarg.entity.User;
 import com.example.MokshaMarg.exception.InvalidCredentialsException;
 import com.example.MokshaMarg.repository.UserRepository;
@@ -52,7 +53,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	}
 
 	@Override
-	public LoginApiResponse  login(User loginRequest) {
+	public LoginApiResponse  login(UserDto loginRequest) {
 		 Optional<User> optionalUser = userRepo.findByEmail(loginRequest.getEmail());
 
 	    if (optionalUser.isEmpty()) {
@@ -64,7 +65,6 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	    	throw new InvalidCredentialsException("password is does not match");
 	    }
 	    
-	    System.out.println(user);
 
 		String token = jwtUtil.generateToken(loginRequest.getEmail(), user.getRole());
 		LoginApiResponse response	=new LoginApiResponse();

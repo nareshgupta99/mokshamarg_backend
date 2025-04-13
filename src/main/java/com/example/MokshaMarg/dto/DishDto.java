@@ -15,10 +15,14 @@ public class DishDto {
 
 	private String publicId;
 
-	private double price;
-
 	private String restaurantId;
 
-	private Long foodTypeId;
+	private String foodTypes;
+	
+	private double price;
+	
+	private String description;
+	
+	private String shortDescription;
 
 }

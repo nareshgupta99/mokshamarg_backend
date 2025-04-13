@@ -30,15 +30,15 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 
-	@PostMapping(value = "/register", consumes = "multipart/form-data")
-	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> registerRestaurant(
-			@RequestPart("restaurant") String restaurant,
-			@RequestPart(value = "image", required = false) MultipartFile imageFile) {
-
-		AbstractApiResponse<RestaurentResponse> response = restaurantService.registerRestaurant(restaurant, imageFile);
-
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
-	}
+		@PostMapping(value = "/register", consumes = "multipart/form-data")
+		public ResponseEntity<AbstractApiResponse<RestaurentResponse>> registerRestaurant(
+				@RequestPart("restaurant") String restaurant,
+				@RequestPart(value = "image", required = false) MultipartFile imageFile) {
+	
+			AbstractApiResponse<RestaurentResponse> response = restaurantService.registerRestaurant(restaurant, imageFile);
+	
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
+		}
 
 	@GetMapping("")
 	public ResponseEntity<AbstractApiResponse<List<RestaurentResponse>>> getAllRestaurants() {

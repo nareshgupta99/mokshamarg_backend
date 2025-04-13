@@ -1,6 +1,8 @@
 package com.example.MokshaMarg.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,15 +30,20 @@ public class Dish {
 	private String publicId;
 	
 	private double price;
+	
+//	private String description;
+//	
+//	private String shortDescription;
 
 	@ManyToOne
 	@JoinColumn(name = "restaurant_id")
-	@JsonIgnore
+	@JsonBackReference("restaurant_dishes")
 	private Restaurant restaurant;
 	
 	
 	@ManyToOne
 	@JsonIgnore
+	@JsonManagedReference("dish_foodTypes")
 	private FoodType foodTypes;
 
 }

@@ -2,6 +2,7 @@ package com.example.MokshaMarg.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -10,8 +11,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import lombok.ToString;
 
 @Entity
+@ToString
 public class FoodType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +22,13 @@ public class FoodType {
 
     private String name;
     
-    @ManyToMany(mappedBy = "foodTypes")
-    @JsonIgnore
-    private List<Restaurant> restaurant;
+//    @ManyToMany(mappedBy = "foodTypes")
+//    @JsonIgnore
+//    private List<Restaurant> restaurant;
     
-    @OneToMany(mappedBy = "foodTypes")
-    @JsonIgnore
-    private List<Dish> dishs;
+//    @OneToMany(mappedBy= "foodTypes")
+//    @JsonBackReference("dish_foodTypes")
+//    private List<Dish> dishs;
 
 	public Long getFoodTypeId() {
 		return foodTypeId;

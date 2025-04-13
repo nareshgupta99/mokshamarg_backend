@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.MokshaMarg.entity.Guide;
+import com.example.MokshaMarg.entity.Language;
 import com.example.MokshaMarg.repository.GuideRepository;
 import com.example.MokshaMarg.repository.LanguageRepository;
 import com.example.MokshaMarg.response.AbstractApiResponse;
@@ -28,6 +29,7 @@ public class GuideServiceImpl implements GuideService {
 	@Override
 	public AbstractApiResponse<GuideResponse> createGuide(Guide guideRequest) {
 		
+//		List<Language> languages = guideRequest.getLanguages();
 		
 		
 		return null;

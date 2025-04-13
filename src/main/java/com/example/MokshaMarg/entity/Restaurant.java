@@ -2,7 +2,9 @@ package com.example.MokshaMarg.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -37,15 +39,17 @@ public class Restaurant {
 	private String startingPrice;
 
 	@OneToOne
-	@JsonIgnore
+	@JsonBackReference("user_restaurant")
 	private User user;
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnore
+	@JsonManagedReference("restaurant_dishes")
 	private List<Dish> dishes;
 
+	
 	@ManyToMany
 	@JoinTable(name = "restaurant_food_types", joinColumns = @JoinColumn(name = "restaurant_id"), inverseJoinColumns = @JoinColumn(name = "food_type_id"))
+	@JsonIgnore
 	private List<FoodType> foodTypes;
 
 }

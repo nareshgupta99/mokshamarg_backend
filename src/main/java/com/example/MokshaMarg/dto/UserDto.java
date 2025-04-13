@@ -1,4 +1,4 @@
-package com.example.MokshaMarg.entity;
+package com.example.MokshaMarg.dto;
 
 import java.time.LocalTime;
 
@@ -17,9 +17,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
-@Entity
+
 @Data
-public class User {
+public class UserDto {
 
 
 	@Id
@@ -34,27 +34,10 @@ public class User {
 
 	private int otp;
 
-	@Enumerated(EnumType.STRING)
 	private OtpType otpType;
 
 	private boolean active;
 
-	private boolean verified = true;
-
-	@Enumerated(EnumType.STRING)
-	private RoleName role;
-
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonManagedReference("user_guideProfile")
-	private Guide guideProfile;
-
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonManagedReference("user_restaurant")
-	private Restaurant restaurantOwnerProfile;
-	
-	private LocalTime expiryTime;
-
-//	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//	private FoodCart cart;
+	private String role;
 
 }

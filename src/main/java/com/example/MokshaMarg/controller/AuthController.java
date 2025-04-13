@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.MokshaMarg.dto.UserDto;
 import com.example.MokshaMarg.entity.User;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.LoginApiResponse;
@@ -28,10 +29,10 @@ public class AuthController {
 		return "forwarded";
 	}
 	@PostMapping("/login")
-	public ResponseEntity<AbstractApiResponse> login(@RequestBody User loginRequest) {
+	public ResponseEntity<AbstractApiResponse> login(@RequestBody UserDto loginRequest) {
 		LoginApiResponse apiResponse = authService.login(loginRequest);
 		AbstractApiResponse<LoginApiResponse> response = new AbstractApiResponse<>(true,
-				"login success", apiResponse);
+				"login success",apiResponse );
 		return new ResponseEntity<>(response, HttpStatus.OK);
 
 	}

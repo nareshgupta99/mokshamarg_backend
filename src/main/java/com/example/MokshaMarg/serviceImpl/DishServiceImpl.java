@@ -3,19 +3,17 @@ package com.example.MokshaMarg.serviceImpl;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.MokshaMarg.dto.DishDto;
 import com.example.MokshaMarg.entity.Dish;
 import com.example.MokshaMarg.entity.FoodType;
 import com.example.MokshaMarg.entity.Restaurant;
+import com.example.MokshaMarg.exception.ResourceNotFoundExcepton;
 import com.example.MokshaMarg.repository.DishRepository;
 import com.example.MokshaMarg.repository.FoodTypeRepository;
 import com.example.MokshaMarg.repository.RestaurentRepository;
@@ -66,28 +64,33 @@ public class DishServiceImpl implements DishService {
 			@SuppressWarnings("unchecked")
 			Map<String, String> resp = cloudinaryUploader.uploadFile(imageFile);
 			dish.setImage(resp.get("url"));
-			dish.setPublicId("public_id");
-			Optional<FoodType> foodType = foodTypeRepository.findById(dishDto.getFoodTypeId());
+			dish.setPublicId(resp.get("public_id"));
+			
+			System.out.println("rest::"+restaurantId);
+			System.out.println("food types::"+dishDto.getFoodTypes());
+			FoodType foodType = foodTypeRepository.findByName(dishDto.getFoodTypes()).orElseThrow(()->new ResourceNotFoundExcepton("id","resource not found"));
+				
+			
+				dish.setFoodTypes(foodType);
+			Restaurant restaurant = restaurentRepository.findById(restaurantId).orElseThrow(()->new ResourceNotFoundExcepton("restauran","resource not found"));
 
-			if (foodType.isPresent()) {
-				dish.setFoodTypes(foodType.get());
-			}
-			Optional<Restaurant> restaurant = restaurentRepository.findById(restaurantId);
-
-			if (restaurant.isPresent()) {
-				dish.setRestaurant(restaurant.get());
-			}
+			
+				dish.setRestaurant(restaurant);
+			
 			dish = dishRepository.save(dish);
-			DishResponse dishResponse = modelMapper.map(dish, DishResponse.class);
+//			DishResponse dishResponse = modelMapper.map(dish, DishResponse.class);
+//			System.out.println(dishResponse.getFoodTypes());
 
-			abstractResponse = new AbstractApiResponse<DishResponse>(true, "Dish is created", dishResponse);
+			abstractResponse = new AbstractApiResponse<DishResponse>(true, "Dish is created",new DishResponse());
 
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException("Invalid restaurant JSON format: " + e.getMessage());
 		} catch (IOException e) {
 			throw new RuntimeException("Image upload failed: " + e.getMessage());
+		}catch (ResourceNotFoundExcepton e) {
+			throw new RuntimeException("resource not found: " + e.getMessage());
 		} catch (Exception e) {
-			throw new RuntimeException("Something went wrong during registration: " + e.getMessage());
+			throw new RuntimeException("Something went wrong during add dish: " + e.getMessage());
 		}
 
 		return abstractResponse;
@@ -144,7 +147,7 @@ public class DishServiceImpl implements DishService {
 		dishResponse.setImage(dish.getImage());
 
 		AbstractApiResponse<DishResponse> abstractApiResponse = new AbstractApiResponse<DishResponse>(true,
-				"image updated success", dishResponse);
+				"Dish Deleted", dishResponse);
 		return abstractApiResponse;
 	}
 

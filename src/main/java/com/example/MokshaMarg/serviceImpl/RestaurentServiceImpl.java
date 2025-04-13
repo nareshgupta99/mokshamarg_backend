@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.MokshaMarg.dto.RestaurantDto;
 import com.example.MokshaMarg.entity.FoodType;
 import com.example.MokshaMarg.entity.Restaurant;
 import com.example.MokshaMarg.entity.User;
@@ -46,7 +47,7 @@ public class RestaurentServiceImpl implements RestaurantService {
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -54,67 +55,65 @@ public class RestaurentServiceImpl implements RestaurantService {
 	@Transactional
 	public AbstractApiResponse<RestaurentResponse> registerRestaurant(String restaurantjson, MultipartFile imageFile) {
 
-	    AbstractApiResponse<RestaurentResponse> abstractResponse = null;
+		AbstractApiResponse<RestaurentResponse> abstractResponse = null;
 
-	    try {
-	        // Convert JSON string to Restaurant object
-	        ObjectMapper objectMapper = new ObjectMapper();
-	        Restaurant restaurant = objectMapper.readValue(restaurantjson, Restaurant.class);
+		try {
+			// Convert JSON string to Restaurant object
+			ObjectMapper objectMapper = new ObjectMapper();
+			RestaurantDto restaurantDto = objectMapper.readValue(restaurantjson, RestaurantDto.class);
 
-	        // Force this to be a new Restaurant (important to avoid Hibernate stale object exception)
-	        restaurant.setRestaurantId(null);
+			Restaurant restaurant = new Restaurant();
 
-	        // Upload image
-	        @SuppressWarnings("unchecked")
-	        Map<String, String> resp = cloudinaryUploader.uploadFile(imageFile);
-	        restaurant.setImage(resp.get("url"));
-	        restaurant.setPublicId("public_id");
+			restaurant.setAddress(restaurantDto.getAddress());
+			restaurant.setCloseTime(restaurantDto.getCloseTime());
+			restaurant.setOpeningTime(restaurantDto.getOpeningTime());
+			restaurant.setLatitude(restaurantDto.getLatitude());
+			restaurant.setLongitude(restaurantDto.getLongitude());
+			restaurant.setName(restaurantDto.getName());
 
-	        // Resolve and attach FoodTypes (ensure managed entities are used)
-	        List<FoodType> savedFoodTypes = new ArrayList<>();
-	        for (FoodType ft : restaurant.getFoodTypes()) {
-	            Optional<FoodType> existing = foodTypeRepository.findByName(ft.getName());
-	            savedFoodTypes.add(existing.orElseGet(() -> foodTypeRepository.save(ft)));
-	        }
-	        restaurant.setFoodTypes(savedFoodTypes);
+			// Upload image
+			@SuppressWarnings("unchecked")
+			Map<String, String> resp = cloudinaryUploader.uploadFile(imageFile);
+			restaurant.setImage(resp.get("url"));
+			restaurant.setPublicId(resp.get("public_id"));
 
-	        // Get current user from SecurityContext and attach
-	        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-	        User savedUser = userRepository.findByEmail(email)
-	            .orElseThrow(() -> new ResourceNotFoundExcepton(email, "Requested resource not found"));
-	        restaurant.setUser(savedUser);
+			List<FoodType> savedFoodTypes = new ArrayList<>();
+			for (String ft : restaurantDto.getFoodTypes()) {
+				FoodType existing = foodTypeRepository.findByName(ft)
+						.orElseThrow(() -> new ResourceNotFoundExcepton(ft, "not Allowed"));
+				savedFoodTypes.add(existing);
+			}
+			restaurant.setFoodTypes(savedFoodTypes);
 
-	        // Save restaurant
-	        Restaurant savedRestaurant = restaurentRepository.save(restaurant);
+			String email = SecurityContextHolder.getContext().getAuthentication().getName();
+			User savedUser = userRepository.findByEmail(email)
+					.orElseThrow(() -> new ResourceNotFoundExcepton(email, "Requested resource not found"));
+			restaurant.setUser(savedUser);
 
-	        // Map to response DTO
-	        RestaurentResponse restaurentResponse = modelMapper.map(savedRestaurant, RestaurentResponse.class);
+			Restaurant savedRestaurant = restaurentRepository.save(restaurant);
+			RestaurentResponse restaurentResponse = modelMapper.map(savedRestaurant, RestaurentResponse.class);
+			abstractResponse = new AbstractApiResponse<>(true, "Restaurant is created", restaurentResponse);
 
-	        // Build API response
-	        abstractResponse = new AbstractApiResponse<>(true, "Restaurant is created", restaurentResponse);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException("Invalid restaurant JSON format: " + e.getMessage());
+		} catch (IOException e) {
+			throw new RuntimeException("Image upload failed: " + e.getMessage());
+		} catch (Exception e) {
+			throw new RuntimeException("Something went wrong during registration: " + e.getMessage());
+		}
 
-	    } catch (JsonProcessingException e) {
-	        throw new RuntimeException("Invalid restaurant JSON format: " + e.getMessage());
-	    } catch (IOException e) {
-	        throw new RuntimeException("Image upload failed: " + e.getMessage());
-	    } catch (Exception e) {
-	        throw new RuntimeException("Something went wrong during registration: " + e.getMessage());
-	    }
-
-	    return abstractResponse;
+		return abstractResponse;
 	}
 
-	
 	@Override
 	public AbstractApiResponse<List<RestaurentResponse>> getAllRestaurants() {
 
-		System.out.println("in restaurant");
 		List<Restaurant> restaurants = restaurentRepository.findAll();
 		List<RestaurentResponse> restaurentResponses = restaurants.stream()
 				.map((rest) -> modelMapper.map(rest, RestaurentResponse.class)).toList();
 
-		AbstractApiResponse<List<RestaurentResponse>> abstractResponse = new AbstractApiResponse<>(true,
-				"success", restaurentResponses);
+		AbstractApiResponse<List<RestaurentResponse>> abstractResponse = new AbstractApiResponse<>(true, "success",
+				restaurentResponses);
 		return abstractResponse;
 	}
 
@@ -125,8 +124,8 @@ public class RestaurentServiceImpl implements RestaurantService {
 				.orElseThrow(() -> new ResourceNotFoundExcepton(id.toString(), "Requested resourse not found"));
 
 		RestaurentResponse restaurentResponse = modelMapper.map(restaurant, RestaurentResponse.class);
-		AbstractApiResponse<RestaurentResponse> abstractResponse = new AbstractApiResponse<>(true,
-				"success", restaurentResponse);
+		AbstractApiResponse<RestaurentResponse> abstractResponse = new AbstractApiResponse<>(true, "success",
+				restaurentResponse);
 		return abstractResponse;
 	}
 
@@ -148,12 +147,12 @@ public class RestaurentServiceImpl implements RestaurantService {
 		}
 		restaurant.setFoodTypes(savedFoodTypes);
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User savedUser = userRepository.findByEmail(email)
-            .orElseThrow(() -> new ResourceNotFoundExcepton(email, "Requested resource not found"));
-        restaurant.setUser(savedUser);
+		User savedUser = userRepository.findByEmail(email)
+				.orElseThrow(() -> new ResourceNotFoundExcepton(email, "Requested resource not found"));
+		restaurant.setUser(savedUser);
 		Restaurant savedResturant = restaurentRepository.save(restaurant);
 		RestaurentResponse restaurentResponse = modelMapper.map(savedResturant, RestaurentResponse.class);
-		  
+
 		AbstractApiResponse<RestaurentResponse> abstractResponse = new AbstractApiResponse<>(true,
 				"Restaurent is updated", restaurentResponse);
 		return abstractResponse;
@@ -172,8 +171,8 @@ public class RestaurentServiceImpl implements RestaurantService {
 		restaurant.setOpen(open);
 		restaurant = restaurentRepository.save(restaurant);
 		RestaurentResponse restaurentResponse = modelMapper.map(restaurant, RestaurentResponse.class);
-		AbstractApiResponse<RestaurentResponse> abstractResponse = new AbstractApiResponse<>(true,
-				"status updated", restaurentResponse);
+		AbstractApiResponse<RestaurentResponse> abstractResponse = new AbstractApiResponse<>(true, "status updated",
+				restaurentResponse);
 		return abstractResponse;
 	}
 //	EmailDetails emailDetails=new EmailDetails("nareshgupta0899@gmail.com","testing","test", "" );
