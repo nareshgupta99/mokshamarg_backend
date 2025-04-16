@@ -86,7 +86,6 @@ public class DishController {
 			@RequestPart(value = "image", required = true) MultipartFile imageFile) {
 
 		AbstractApiResponse<DishResponse> abstractApiResponse = dishService.updateImage(id, imageFile);
-
 		return new ResponseEntity<>(abstractApiResponse, HttpStatus.OK);
 	}
 

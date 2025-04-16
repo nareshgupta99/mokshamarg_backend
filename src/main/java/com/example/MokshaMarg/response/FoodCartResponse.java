@@ -9,10 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class FoodCartResponse {
-    private Long cartId;
+    private Long cartItemId;
     private String itemName;
     private int quantity;
     private double price;
+    private String image;
+    private String foodType;
+    private Long dishId;
 
 
  

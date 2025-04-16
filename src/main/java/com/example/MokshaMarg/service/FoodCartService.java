@@ -18,4 +18,6 @@ public interface FoodCartService {
 
 	AbstractApiResponse<List<FoodCartResponse>> removeAllFromCart();
 
+	AbstractApiResponse<FoodCartResponse> removeQuantityFromCart(Long id);
+
 }

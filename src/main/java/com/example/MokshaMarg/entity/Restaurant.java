@@ -39,7 +39,6 @@ public class Restaurant {
 	private String startingPrice;
 
 	@OneToOne
-	@JsonBackReference("user_restaurant")
 	@JsonIgnore
 	private User user;
 

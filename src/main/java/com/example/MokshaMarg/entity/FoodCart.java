@@ -1,5 +1,6 @@
 package com.example.MokshaMarg.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -29,5 +30,5 @@ public class FoodCart {
     private User user;
 
     @OneToMany(mappedBy = "foodCart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItem> cartItems;
+    private List<CartItem> cartItems = new ArrayList<>();
 }

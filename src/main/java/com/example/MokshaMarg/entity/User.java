@@ -49,7 +49,6 @@ public class User {
 	private Guide guideProfile;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonManagedReference("user_restaurant")
 	private Restaurant restaurantOwnerProfile;
 	
 	private LocalTime expiryTime;
