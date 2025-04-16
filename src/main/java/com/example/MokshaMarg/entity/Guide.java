@@ -1,5 +1,6 @@
 package com.example.MokshaMarg.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -39,7 +40,7 @@ public class Guide {
             joinColumns = @JoinColumn(name = "guide_id"),
             inverseJoinColumns = @JoinColumn(name = "language_id")
     )
-    private Set<Language> languages;
+    private List<Language> languages;
 
 
 }

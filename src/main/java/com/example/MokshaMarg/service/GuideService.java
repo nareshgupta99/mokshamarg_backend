@@ -2,13 +2,14 @@ package com.example.MokshaMarg.service;
 
 import java.util.List;
 
+import com.example.MokshaMarg.dto.GuideDto;
 import com.example.MokshaMarg.entity.Guide;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.GuideResponse;
 
 public interface GuideService {
 
-    AbstractApiResponse<GuideResponse> createGuide(Guide guideRequest);
+    AbstractApiResponse<GuideResponse> createGuide(GuideDto guideRequest);
 
     AbstractApiResponse<GuideResponse> getGuideById(Long id);
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.MokshaMarg.dto.GuideDto;
 import com.example.MokshaMarg.entity.Guide;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.GuideResponse;
@@ -26,7 +27,7 @@ public class GuideController {
     private GuideService guideService;
 
     @PostMapping
-    public ResponseEntity<AbstractApiResponse<GuideResponse>> createGuide(@RequestBody Guide guideRequest) {
+    public ResponseEntity<AbstractApiResponse<GuideResponse>> createGuide(@RequestBody GuideDto guideRequest) {
         AbstractApiResponse<GuideResponse> response = guideService.createGuide(guideRequest);
         return ResponseEntity.ok(response);
     }

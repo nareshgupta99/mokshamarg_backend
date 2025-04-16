@@ -1,11 +1,13 @@
 package com.example.MokshaMarg.serviceImpl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.MokshaMarg.dto.GuideDto;
 import com.example.MokshaMarg.entity.Guide;
 import com.example.MokshaMarg.entity.Language;
 import com.example.MokshaMarg.repository.GuideRepository;
@@ -27,9 +29,14 @@ public class GuideServiceImpl implements GuideService {
 	private LanguageRepository languageRepository;
 
 	@Override
-	public AbstractApiResponse<GuideResponse> createGuide(Guide guideRequest) {
+	public AbstractApiResponse<GuideResponse> createGuide(GuideDto guideRequest) {
 		
-//		List<Language> languages = guideRequest.getLanguages();
+		List<Language> languages = guideRequest.getLanguages().stream().map((id)->languageRepository.findById(id).orElseThrow()).toList();
+		Guide guide= new Guide();
+		guide.setLanguages(languages);
+		guide.setPrice(guideRequest.getPrice());
+//		guide.setUser();
+		
 		
 		
 		return null;
