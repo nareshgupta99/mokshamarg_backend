@@ -1,6 +1,8 @@
 package com.example.MokshaMarg.entity;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.MokshaMarg.util.OtpType;
 import com.example.MokshaMarg.util.RoleName;
@@ -14,6 +16,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -32,7 +35,7 @@ public class User {
 
 	private String password;
 
-	private int otp;
+	private String otp;
 
 	@Enumerated(EnumType.STRING)
 	private OtpType otpType;
@@ -49,11 +52,17 @@ public class User {
 	private Guide guideProfile;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Restaurant restaurantOwnerProfile;
 	
 	private LocalTime expiryTime;
 
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private FoodCart cart;
+	
+	@OneToMany
+	@JsonIgnore
+	private List <FoodOrder> foodOrder = new ArrayList<>();
 
 }

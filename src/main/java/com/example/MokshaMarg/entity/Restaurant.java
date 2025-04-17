@@ -44,6 +44,7 @@ public class Restaurant {
 
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonManagedReference("restaurant_dishes")
+	@JsonIgnore
 	private List<Dish> dishes;
 
 	

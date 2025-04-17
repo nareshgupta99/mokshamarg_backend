@@ -18,7 +18,11 @@ import com.example.MokshaMarg.repository.RestaurentRepository;
 import com.example.MokshaMarg.repository.UserRepository;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.LoginApiResponse;
+import com.example.MokshaMarg.response.OtpResponse;
 import com.example.MokshaMarg.service.AuthenticationService;
+import com.example.MokshaMarg.util.EmailDetails;
+import com.example.MokshaMarg.util.MailBody;
+import com.example.MokshaMarg.util.MailService;
 
 @Service	
 public class AuthenticationServiceImpl implements AuthenticationService{
@@ -31,6 +35,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
 	@Autowired
 	private JwtUtil jwtUtil;
+	
+	@Autowired
+	private MailService mailService;
 	
 
 	@Autowired
@@ -87,20 +94,32 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	}
 	
 	
-	public AbstractApiResponse sendOtp(User user) {
+	public AbstractApiResponse<OtpResponse> sendOtp(User user) {
 		 Optional<User> optionalUser = userRepo.findByEmail(user.getEmail());
 		    if (optionalUser.isEmpty()) {
 		    	throw new UsernameNotFoundException("emails is not registerd");
 		    }
 		    User saveduser = optionalUser.get();
-		   int otp = (int) (Math.random() * 10000) ;
+		    int otp = (int)(Math.random() * 1000000);
+		    String otpString = String.format("%06d", otp);
 		   System.out.println("otp == "+  otp );
 		   LocalTime now=LocalTime.now();
 		   LocalTime expiry =now.plusMinutes(2);
 		   saveduser.setExpiryTime(expiry);
-		   saveduser.setOtp(otp);
+		   saveduser.setOtp(otpString);
 		   userRepo.save(saveduser);
-		   return new AbstractApiResponse(true,"otp sent successfully",Collections.emptyMap());
+		   EmailDetails details= new EmailDetails();
+		   
+		   String messageBody=MailBody.resetPasswordBody(saveduser.getName(), otpString);
+		   
+		   details.setMsgBody(messageBody);
+		   details.setRecipient(saveduser.getEmail());
+		   details.setSubject("Password Reset Request");
+		   mailService.sendSimpleMail(details);
+		   OtpResponse response =new OtpResponse();
+		   response.setEmail(user.getEmail());
+		   response.setId(saveduser.getUserId());
+		   return new AbstractApiResponse<OtpResponse>(true,"otp sent successfully",response);
 	}
 	
 	public void verifyOtp(User user) {

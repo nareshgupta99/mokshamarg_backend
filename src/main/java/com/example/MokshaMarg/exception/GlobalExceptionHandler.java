@@ -1,10 +1,8 @@
 package com.example.MokshaMarg.exception;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.example.MokshaMarg.response.AbstractApiResponse;
-import com.example.MokshaMarg.util.StatusType;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

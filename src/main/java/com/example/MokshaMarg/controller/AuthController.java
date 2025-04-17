@@ -14,7 +14,6 @@ import com.example.MokshaMarg.entity.User;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.LoginApiResponse;
 import com.example.MokshaMarg.service.AuthenticationService;
-import com.example.MokshaMarg.util.StatusType;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -58,13 +57,14 @@ public class AuthController {
 	}
 	
 	@PostMapping("/verifyOtp")
-	public ResponseEntity<AbstractApiResponse> verifyOtp(@RequestBody User user) {
-		AbstractApiResponse apiResponse = authService.register(user);
-		if (apiResponse.isStatus()) {
-			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
-		}
+	public ResponseEntity<AbstractApiResponse> verifyOtp(@RequestBody UserDto user) {
+//		AbstractApiResponse apiResponse = authService.register(user);
+//		if (apiResponse.isStatus()) {
+//			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+//		} else {
+//			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+//		}
+		return null;
 	}
 	
 	@PostMapping("/resetPassword")

@@ -10,6 +10,6 @@ import com.example.MokshaMarg.entity.FoodType;
 @Repository
 public interface FoodTypeRepository extends JpaRepository<FoodType,Long > {
 	
-	Optional< FoodType> findByName(String name); 
+	Optional<FoodType> findByName(String name); 
 
 }
