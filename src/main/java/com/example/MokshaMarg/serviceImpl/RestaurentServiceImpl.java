@@ -24,7 +24,6 @@ import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.RestaurentResponse;
 import com.example.MokshaMarg.service.RestaurantService;
 import com.example.MokshaMarg.util.CloudinaryUploader;
-import com.example.MokshaMarg.util.MailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,8 +35,8 @@ public class RestaurentServiceImpl implements RestaurantService {
 	@Autowired
 	private CloudinaryUploader cloudinaryUploader;
 
-	@Autowired
-	private MailService mailService;
+//	@Autowired
+//	private MailService mailService;
 
 	@Autowired
 	private FoodTypeRepository foodTypeRepository;
@@ -176,7 +175,5 @@ public class RestaurentServiceImpl implements RestaurantService {
 				restaurentResponse);
 		return abstractResponse;
 	}
-//	EmailDetails emailDetails=new EmailDetails("nareshgupta0899@gmail.com","testing","test", "" );
-//	mailService.sendSimpleMail(emailDetails);
 
 }

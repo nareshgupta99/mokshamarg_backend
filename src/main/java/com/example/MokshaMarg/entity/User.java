@@ -64,5 +64,9 @@ public class User {
 	@OneToMany
 	@JsonIgnore
 	private List <FoodOrder> foodOrder = new ArrayList<>();
+	
+	private String image;
+	
+	private String publicId;
 
 }

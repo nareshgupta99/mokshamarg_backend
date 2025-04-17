@@ -1,7 +1,5 @@
 package com.example.MokshaMarg.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +12,6 @@ import com.example.MokshaMarg.dto.FoodOrderDto;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.FoodOrderResponse;
 import com.example.MokshaMarg.service.FoodOrderService;
-import com.example.MokshaMarg.service.PaymentService;
-import com.razorpay.Order;
 
 @RestController
 @RequestMapping("/api/v1/food/order")
