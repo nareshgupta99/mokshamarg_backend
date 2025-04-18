@@ -91,7 +91,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	}
 	
 	
-	public AbstractApiResponse<OtpResponse> sendOtp(User user) {
+	public AbstractApiResponse<OtpResponse> sendOtp(UserDto user) {
 		 Optional<User> optionalUser = userRepo.findByEmail(user.getEmail());
 		    if (optionalUser.isEmpty()) {
 		    	throw new UsernameNotFoundException("emails is not registerd");
@@ -119,8 +119,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		   return new AbstractApiResponse<OtpResponse>(true,"otp sent successfully",response);
 	}
 	
-	public void verifyOtp(User user) {
-		 Optional<User> optionalUser = userRepo.findByEmail(user.getEmail());
+	public AbstractApiResponse verifyOtp(UserDto user) {
+		AbstractApiResponse response = new  AbstractApiResponse();
+		 Optional<User> optionalUser = userRepo.findById(user.getUserId());
 		    if (optionalUser.isEmpty()) {
 		    	throw new UsernameNotFoundException("emails is not registerd");
 		    }
@@ -128,15 +129,25 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		   LocalTime expiry =saveduser.getExpiryTime();
 		   LocalTime now=LocalTime.now();
 		   if (now.isAfter(expiry)) {
-			    System.out.println("expiry");
-			} else {
-			    System.out.println("Outside working hours.");
-			}
-		   userRepo.save(saveduser);
+			   response.setMessage("Your otp is Expired");
+			   response.setStatus(false);
+			} 
+		   else if(!user.getOtp().equals( saveduser.getOtp())) {
+			   response.setMessage("otp Not Matched");
+			   response.setStatus(false);
+		   }else {
+			   saveduser.setOtp("");
+			   response.setStatus(true);
+			   response.setMessage("otp Verified");
+			   userRepo.save(saveduser);
+		   }
+		   
+		   response.setData(Collections.emptyMap());
+		   return response;
 	}
 	
-	public void resetPassword(User user) {
-		 Optional<User> optionalUser = userRepo.findByEmail(user.getEmail());
+	public AbstractApiResponse resetPassword(UserDto user) {
+		 Optional<User> optionalUser = userRepo.findById(user.getUserId());
 		    if (optionalUser.isEmpty()) {
 		    	throw new UsernameNotFoundException("emails is not registerd");
 		    }
@@ -144,9 +155,14 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		    String encodedPassword=passwordEncoder.encode(user.getPassword());
 		    saveduser.setPassword(encodedPassword);
 		    userRepo.save(saveduser);
-		
+		    AbstractApiResponse response = new  AbstractApiResponse();
+		    response.setMessage("password changed");
+			   response.setStatus(true);
+			   response.setData(Collections.emptyMap());
+			   return response;
 	}
-	
+
+
 
 	
 	

@@ -21,9 +21,6 @@ import lombok.Data;
 @Data
 public class UserDto {
 
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long userId;
 
 	private String name;
@@ -32,12 +29,14 @@ public class UserDto {
 
 	private String password;
 
-	private int otp;
+	private String otp;
 
 	private OtpType otpType;
 
 	private boolean active;
 
 	private String role;
+	
+	private String oldPassword;
 
 }

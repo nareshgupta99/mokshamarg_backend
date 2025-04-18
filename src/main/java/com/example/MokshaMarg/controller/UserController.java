@@ -36,7 +36,7 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/edit/image",consumes = "multipart/form-data")
-	public ResponseEntity<AbstractApiResponse<UserResponse>> editUserImage(@RequestPart(value = "image",required = true)  MultipartFile imageFile) {
+	public ResponseEntity<AbstractApiResponse<UserResponse>> editUserImage(@RequestPart(value = "image",required = false)  MultipartFile imageFile) {
 		AbstractApiResponse<UserResponse> abstractApiResponse =userService.editUserImage(imageFile);
 		return new  ResponseEntity<AbstractApiResponse<UserResponse>>(abstractApiResponse,HttpStatus.OK);
 	}

@@ -1,8 +1,10 @@
 package com.example.MokshaMarg.response;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class AbstractApiResponse<T> {
 
 

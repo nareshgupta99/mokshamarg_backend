@@ -4,6 +4,7 @@ import com.example.MokshaMarg.dto.UserDto;
 import com.example.MokshaMarg.entity.User;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.LoginApiResponse;
+import com.example.MokshaMarg.response.OtpResponse;
 
 public interface AuthenticationService {
 
@@ -11,7 +12,9 @@ public interface AuthenticationService {
 
 	public LoginApiResponse login(UserDto user);
 
-	public AbstractApiResponse sendOtp(User user);
+	public AbstractApiResponse<OtpResponse> sendOtp(UserDto user);
 
-	public void resetPassword(User user);
+	public AbstractApiResponse resetPassword(UserDto user);
+	
+	public AbstractApiResponse verifyOtp(UserDto user);
 }

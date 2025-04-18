@@ -72,8 +72,9 @@ public class TempleServiceImpl implements TempleService {
 		templeResponse.setLivelink(existingTemple.getLivelink());
 		templeResponse.setName(existingTemple.getName());
 		templeResponse.setStreetAddress(existingTemple.getStreetAddress());
+		templeRepository.delete(existingTemple);
 		AbstractApiResponse<TempleResponse> abstractResponse = new AbstractApiResponse<TempleResponse>(true,
-				"temple added", templeResponse);
+				"temple deleted", templeResponse);
 		return abstractResponse;
 	}
 

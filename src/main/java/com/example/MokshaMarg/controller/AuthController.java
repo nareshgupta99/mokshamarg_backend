@@ -47,7 +47,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/sendOtp")
-	public ResponseEntity<AbstractApiResponse> sendOtp(@RequestBody User user) {
+	public ResponseEntity<AbstractApiResponse> sendOtp(@RequestBody UserDto user) {
 		AbstractApiResponse apiResponse = authService.sendOtp(user);
 		if (apiResponse.isStatus()) {
 			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
@@ -58,18 +58,19 @@ public class AuthController {
 	
 	@PostMapping("/verifyOtp")
 	public ResponseEntity<AbstractApiResponse> verifyOtp(@RequestBody UserDto user) {
-//		AbstractApiResponse apiResponse = authService.register(user);
-//		if (apiResponse.isStatus()) {
-//			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
-//		}
-		return null;
+		AbstractApiResponse apiResponse = authService.verifyOtp(user);
+		if (apiResponse.isStatus()) {
+			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+		}
 	}
 	
+
+	
 	@PostMapping("/resetPassword")
-	public ResponseEntity<AbstractApiResponse> resetPassword(@RequestBody User user) {
-		AbstractApiResponse apiResponse = authService.register(user);
+	public ResponseEntity<AbstractApiResponse> resetPassword(@RequestBody UserDto user) {
+		AbstractApiResponse apiResponse = authService.resetPassword(user);
 		if (apiResponse.isStatus()) {
 			return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
 		} else {

@@ -1,5 +1,7 @@
 package com.example.MokshaMarg.service;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.MokshaMarg.dto.UserDto;
@@ -14,5 +16,9 @@ public interface UserService {
 	
 	public AbstractApiResponse<UserResponse> editUserImage(MultipartFile imageFile);
 	
-	public AbstractApiResponse<UserResponse> updateUserPassword(UserDto userDto);
+	public AbstractApiResponse<UserResponse> updateUserPassword(UserDto userDto);
+
+	AbstractApiResponse<List<UserResponse>> getAllUser();
+	
+	
 }

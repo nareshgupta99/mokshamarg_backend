@@ -2,6 +2,7 @@ package com.example.MokshaMarg.service;
 
 import java.util.List;
 
+import org.hibernate.query.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.MokshaMarg.response.AbstractApiResponse;
@@ -16,6 +17,8 @@ public interface TempleService {
 	public AbstractApiResponse<List<TempleResponse>> getAllTemple();
 	
 	public AbstractApiResponse<TempleResponse> getTempleById(Long id);
+
+	
 	
 
 }
