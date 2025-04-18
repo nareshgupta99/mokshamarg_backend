@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.MokshaMarg.dto.FoodOrderDto;
+import com.example.MokshaMarg.dto.PaymentVerificationDto;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.FoodOrderResponse;
 import com.example.MokshaMarg.service.FoodOrderService;
@@ -28,8 +29,8 @@ public class FoodOrderController {
     }
     
     @PostMapping("/payment/verify")
-    public ResponseEntity<AbstractApiResponse<FoodOrderResponse>> paymentVerify(@RequestBody FoodOrderDto foodOrderDto) {
-    	AbstractApiResponse<FoodOrderResponse> abstractApiResponse	   = foodOrderService.createOrder(foodOrderDto);
+    public ResponseEntity<AbstractApiResponse<FoodOrderResponse>> paymentVerify(@RequestBody PaymentVerificationDto paymentVerificaionDto) {
+    	AbstractApiResponse<FoodOrderResponse> abstractApiResponse	   = foodOrderService.paymentVerification(paymentVerificaionDto);
     	return new ResponseEntity<AbstractApiResponse<FoodOrderResponse>>(abstractApiResponse,HttpStatus.OK);
     }
 

@@ -45,13 +45,14 @@ public class FoodOrder {
     @OneToMany( cascade = CascadeType.ALL)
     private List<CartItem> items;
     
-    @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
+    private String paymentStatus;
 
     private String method; 
     
     private String razorpayOrderId;
     
     private String razorpayRecipt;
+    
+    private String paymentId;
     
 }

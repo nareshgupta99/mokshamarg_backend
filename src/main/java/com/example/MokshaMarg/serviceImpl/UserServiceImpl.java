@@ -70,7 +70,9 @@ public class UserServiceImpl implements UserService {
 		try {
 			String email = SecurityContextHolder.getContext().getAuthentication().getName();
 			User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("user Not Found"));
+		if(user.getPublicId() !=null ||  user.getPublicId().length() > 0) {
 			cloudinaryUploader.deleteFile(user.getPublicId());
+		}
 			Map<String, String> resp = cloudinaryUploader.uploadFile(imageFile);
 			user.setImage(resp.get("url"));
 			user.setPublicId(resp.get("public_id"));

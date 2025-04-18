@@ -65,7 +65,7 @@ public class User {
 	@JsonIgnore
 	private List <FoodOrder> foodOrder = new ArrayList<>();
 	
-	private String image;
+	private String image ="http://res.cloudinary.com/dnkci1bpn/image/upload/v1745007026/nite6ivff9vnaok2epyt.png";
 	
 	private String publicId;
 
