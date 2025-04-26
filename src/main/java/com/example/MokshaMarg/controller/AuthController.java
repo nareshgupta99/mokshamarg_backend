@@ -22,16 +22,15 @@ public class AuthController {
 	@Autowired
 	private AuthenticationService authService;
 
-	
 	@GetMapping("/")
 	public String get() {
 		return "forwarded";
 	}
+
 	@PostMapping("/login")
 	public ResponseEntity<AbstractApiResponse> login(@RequestBody UserDto loginRequest) {
 		LoginApiResponse apiResponse = authService.login(loginRequest);
-		AbstractApiResponse<LoginApiResponse> response = new AbstractApiResponse<>(true,
-				"login success",apiResponse );
+		AbstractApiResponse<LoginApiResponse> response = new AbstractApiResponse<>(true, "login success", apiResponse);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 
 	}
@@ -39,43 +38,30 @@ public class AuthController {
 	@PostMapping("/register")
 	public ResponseEntity<AbstractApiResponse> register(@RequestBody User user) {
 		AbstractApiResponse apiResponse = authService.register(user);
-		if (apiResponse.isStatus()) {
-			return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
-		} else {
-			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
-		}
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+
 	}
-	
+
 	@PostMapping("/sendOtp")
 	public ResponseEntity<AbstractApiResponse> sendOtp(@RequestBody UserDto user) {
 		AbstractApiResponse apiResponse = authService.sendOtp(user);
-		if (apiResponse.isStatus()) {
-			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
-		}
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+
 	}
-	
+
 	@PostMapping("/verifyOtp")
 	public ResponseEntity<AbstractApiResponse> verifyOtp(@RequestBody UserDto user) {
 		AbstractApiResponse apiResponse = authService.verifyOtp(user);
-		if (apiResponse.isStatus()) {
-			return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
-		}
-	}
-	
 
-	
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+
+	}
+
 	@PostMapping("/resetPassword")
 	public ResponseEntity<AbstractApiResponse> resetPassword(@RequestBody UserDto user) {
 		AbstractApiResponse apiResponse = authService.resetPassword(user);
-		if (apiResponse.isStatus()) {
-			return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
-		} else {
-			return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
-		}
+		return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+
 	}
-	
+
 }

@@ -1,7 +1,9 @@
 package com.example.MokshaMarg.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,7 +139,11 @@ public class FoodCartServiceImpl implements FoodCartService {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User existingUser = userRepo.findByEmail(email).orElseThrow(
 				() -> new ResourceNotFoundExcepton(email, "not found Something Wrong failed to remove item from cart"));
-		FoodCart foodCart = foodCartRepo.findByUser(existingUser).orElseThrow();
+		Optional<FoodCart> optionalFoodCart = foodCartRepo.findByUser(existingUser);
+		if(optionalFoodCart.isEmpty()) {
+			return new AbstractApiResponse<List<FoodCartResponse>>(true, "success",Collections.emptyList());
+		}
+		FoodCart foodCart= optionalFoodCart.get();
 		List<CartItem> cartItems = foodCart.getCartItems();
 		List<FoodCartResponse> foodCartResponses = cartItems.stream().map((item)->{
 			FoodCartResponse cartResponse	= new FoodCartResponse();

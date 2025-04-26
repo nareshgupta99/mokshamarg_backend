@@ -17,22 +17,29 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<AbstractApiResponse> handleUserNotFound(UserNotFoundException ex) {
-        return new ResponseEntity<>(new AbstractApiResponse(false, ex.getMessage(), Collections.emptyMap()), HttpStatus.OK);
+    	return new ResponseEntity<>(new AbstractApiResponse(false, ex.getMessage(), Collections.emptyMap()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<AbstractApiResponse> handleInvalidCredentials(InvalidCredentialsException ex) {
-        return new ResponseEntity<AbstractApiResponse>(new AbstractApiResponse(false, ex.getMessage(), Collections.emptyMap()), HttpStatus.OK);
+        return new ResponseEntity<AbstractApiResponse>(new AbstractApiResponse(false, ex.getMessage(), Collections.emptyMap()), HttpStatus.UNAUTHORIZED);
     }
+    
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
+    public ResponseEntity<AbstractApiResponse> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(err -> {
             errors.put(err.getField(), err.getDefaultMessage());
         });
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<AbstractApiResponse>(new AbstractApiResponse(false, ex.getMessage(), Collections.emptyMap()), HttpStatus.BAD_REQUEST);
+//        return new ResponseEntity<AbstractApiResponse>(false,"something went wrong",Collections.emptyMap() HttpStatus.BAD_REQUEST);
     }
     
-
+    @ExceptionHandler(ResourceNotFoundExcepton.class)
+    public ResponseEntity<AbstractApiResponse> handleResourceNotEntityFoundException(ResourceNotFoundExcepton ex) {
+    	return new ResponseEntity<>(new AbstractApiResponse(false, ex.getMessage(), Collections.emptyMap()), HttpStatus.NOT_FOUND);
+    }
+    
+    
 }

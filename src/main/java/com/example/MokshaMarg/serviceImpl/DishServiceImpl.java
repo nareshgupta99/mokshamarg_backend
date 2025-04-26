@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,10 +14,12 @@ import com.example.MokshaMarg.dto.DishDto;
 import com.example.MokshaMarg.entity.Dish;
 import com.example.MokshaMarg.entity.FoodType;
 import com.example.MokshaMarg.entity.Restaurant;
+import com.example.MokshaMarg.entity.User;
 import com.example.MokshaMarg.exception.ResourceNotFoundExcepton;
 import com.example.MokshaMarg.repository.DishRepository;
 import com.example.MokshaMarg.repository.FoodTypeRepository;
 import com.example.MokshaMarg.repository.RestaurentRepository;
+import com.example.MokshaMarg.repository.UserRepository;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.DishResponse;
 import com.example.MokshaMarg.service.DishService;
@@ -47,6 +50,9 @@ public class DishServiceImpl implements DishService {
 
 	@Autowired
 	private DishRepository dishRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Override
 	@Transactional
@@ -72,7 +78,9 @@ public class DishServiceImpl implements DishService {
 				
 			
 				dish.setFoodTypes(foodType);
-			Restaurant restaurant = restaurentRepository.findById(restaurantId).orElseThrow(()->new ResourceNotFoundExcepton("restauran","resource not found"));
+				String email =SecurityContextHolder .getContext().getAuthentication().getName();
+				User existingUser = userRepository.findByEmail(email).orElseThrow();
+			Restaurant restaurant = restaurentRepository.findByUser(existingUser).orElseThrow(()->new ResourceNotFoundExcepton("restauran","resource not found"));
 
 			
 				dish.setRestaurant(restaurant);

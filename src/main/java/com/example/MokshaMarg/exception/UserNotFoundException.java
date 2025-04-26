@@ -5,6 +5,7 @@ public class UserNotFoundException extends RuntimeException {
 	String message;
 	
     public UserNotFoundException(boolean status,String message) {
+    	super(message);
     	this.message=message;
     	this.status=status;
     }

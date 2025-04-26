@@ -8,13 +8,13 @@ import com.example.MokshaMarg.response.OtpResponse;
 
 public interface AuthenticationService {
 
-	public AbstractApiResponse register(User user);
-
 	public LoginApiResponse login(UserDto user);
 
 	public AbstractApiResponse<OtpResponse> sendOtp(UserDto user);
 
 	public AbstractApiResponse resetPassword(UserDto user);
-	
+
 	public AbstractApiResponse verifyOtp(UserDto user);
+
+	AbstractApiResponse register(User user);
 }

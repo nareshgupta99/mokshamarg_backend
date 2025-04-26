@@ -25,6 +25,6 @@ public class LoginApiResponse {
 	
 	private String token;
 	
-	private String restaurantId;
+	private Long restaurantId;
 
 }
