@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GuideDto {
 	
-	private Long guideId;
+	private String guideId;
 	
 	private double price;
     private String imageUrl;
     private String createdAt;
      
-    private Set<Long> languages;
+    private Set<String> languages;
 }

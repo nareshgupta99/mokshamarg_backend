@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.MokshaMarg.entity.CartItem;
 
 @Repository
-public interface CartItemRepository extends JpaRepository<CartItem,Long> {
+public interface CartItemRepository extends JpaRepository<CartItem,String> {
 
 }

@@ -13,11 +13,11 @@ public interface RestaurantService {
 
 	AbstractApiResponse<List<RestaurentResponse>> getAllRestaurants();
 
-	AbstractApiResponse<RestaurentResponse> getRestaurantById(Long id);
+	AbstractApiResponse<RestaurentResponse> getRestaurantById(String id);
 
-	AbstractApiResponse<RestaurentResponse> updateRestaurant(Long id, Restaurant updatedRestaurant);
+	AbstractApiResponse<RestaurentResponse> updateRestaurant(String id, Restaurant updatedRestaurant);
 
-	AbstractApiResponse deleteRestaurant(Long id);;
+	AbstractApiResponse deleteRestaurant(String id);;
 
-	AbstractApiResponse<RestaurentResponse> updateRestaurentUpdateStatus(Boolean open, Long id);
+	AbstractApiResponse<RestaurentResponse> updateRestaurentUpdateStatus(Boolean open, String id);
 }

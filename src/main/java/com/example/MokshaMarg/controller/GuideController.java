@@ -33,19 +33,19 @@ public class GuideController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AbstractApiResponse<GuideResponse>> getGuideById(@PathVariable Long id) {
+    public ResponseEntity<AbstractApiResponse<GuideResponse>> getGuideById(@PathVariable String id) {
         AbstractApiResponse<GuideResponse> response = guideService.getGuideById(id);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AbstractApiResponse<GuideResponse>> updateGuide(@PathVariable Long id, @RequestBody Guide guideRequest) {
+    public ResponseEntity<AbstractApiResponse<GuideResponse>> updateGuide(@PathVariable String id, @RequestBody Guide guideRequest) {
         AbstractApiResponse<GuideResponse> response = guideService.updateGuide(id, guideRequest);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<AbstractApiResponse<GuideResponse>> deleteGuide(@PathVariable Long id) {
+    public ResponseEntity<AbstractApiResponse<GuideResponse>> deleteGuide(@PathVariable String id) {
         AbstractApiResponse<GuideResponse> response = guideService.deleteGuide(id);
         return ResponseEntity.ok(response);
     }

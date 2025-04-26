@@ -3,8 +3,8 @@ package com.example.MokshaMarg.serviceImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,6 +52,7 @@ public class FoodCartServiceImpl implements FoodCartService {
 		FoodCart foodCart = foodCartRepo.findByUser(existingUser).orElseGet(() -> {
 			FoodCart cart = new FoodCart();
 			cart.setUser(existingUser);
+			cart.setFoodCartId(UUID.randomUUID().toString());
 			return foodCartRepo.save(cart);
 		});
 
@@ -74,6 +75,7 @@ public class FoodCartServiceImpl implements FoodCartService {
 			cartItem.setQuantity(cartItemDto.getQuantity());
 			cartItem.setDishNameSnapshot(dish.getDishName());
 			cartItem.setDishPriceSnapshot(dish.getPrice());
+			cartItem.setCartItemId(UUID.randomUUID().toString());
 			savedCartItem = cartItemRepository.save(cartItem);
 
 			foodCart.getCartItems().add(savedCartItem);
@@ -106,13 +108,13 @@ public class FoodCartServiceImpl implements FoodCartService {
 	}
 
 	@Override
-	public AbstractApiResponse<FoodCartResponse> getCartById(Long cartId) {
+	public AbstractApiResponse<FoodCartResponse> getCartById(String cartId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public AbstractApiResponse<FoodCartResponse> removeFromcart(Long cartItemId) {
+	public AbstractApiResponse<FoodCartResponse> removeFromcart(String cartItemId) {
 
 		String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		User existingUser = userRepo.findByEmail(userEmail).orElseThrow(() -> new ResourceNotFoundExcepton(userEmail,
@@ -176,7 +178,7 @@ public class FoodCartServiceImpl implements FoodCartService {
 	}
 	
 	@Override
-	public AbstractApiResponse<FoodCartResponse> removeQuantityFromCart(Long id) {
+	public AbstractApiResponse<FoodCartResponse> removeQuantityFromCart(String id) {
 
 		String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 		User existingUser = userRepo.findByEmail(userEmail).orElseThrow(() -> new ResourceNotFoundExcepton(userEmail,

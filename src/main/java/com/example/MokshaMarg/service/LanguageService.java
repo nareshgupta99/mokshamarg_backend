@@ -10,7 +10,7 @@ public interface LanguageService {
 
     AbstractApiResponse<LanguageResponse> createLanguage(Language request);
 
-    AbstractApiResponse<LanguageResponse> getLanguageById(Long id);
+    AbstractApiResponse<LanguageResponse> getLanguageById(String id);
 
     AbstractApiResponse<List<LanguageResponse>> getAllLanguages();
 }

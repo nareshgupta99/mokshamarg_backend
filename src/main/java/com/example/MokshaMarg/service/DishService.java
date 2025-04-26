@@ -11,21 +11,21 @@ import com.example.MokshaMarg.response.DishResponse;
 
 public interface DishService {
 
-	    AbstractApiResponse<DishResponse> addDish(String dish, MultipartFile imageFile, Long restaurantId);
+	    AbstractApiResponse<DishResponse> addDish(String dish, MultipartFile imageFile);
 
 	    AbstractApiResponse<List<DishResponse>> getAllDishes();
 
-	    AbstractApiResponse<DishResponse> getDishById(Long id);
+	    AbstractApiResponse<DishResponse> getDishById(String id);
 
-	    AbstractApiResponse<DishResponse> updateDish(Long restaurentId, Dish updatedDish, Long dishId);
+	    AbstractApiResponse<DishResponse> updateDish(String restaurentId, Dish updatedDish, String dishId);
 
-	    AbstractApiResponse<DishResponse> deleteDish(Long id);
+	    AbstractApiResponse<DishResponse> deleteDish(String id);
 
-	    AbstractApiResponse<DishResponse> updateDishStatus(Long DishId,String status);
+	    AbstractApiResponse<DishResponse> updateDishStatus(String DishId,String status);
 	    
-	    AbstractApiResponse<DishResponse> updateImage(Long dishId,MultipartFile imageFile);
+	    AbstractApiResponse<DishResponse> updateImage(String dishId,MultipartFile imageFile);
 	    
-	    public AbstractApiResponse<List<DishResponse>> getAllDishByRestaurant( Long id);
+	    public AbstractApiResponse<List<DishResponse>> getAllDishByRestaurant( String id);
 }
 
 

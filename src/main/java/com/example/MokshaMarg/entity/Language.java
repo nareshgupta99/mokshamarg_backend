@@ -13,7 +13,7 @@ public class Language {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long languageId;
+    private String languageId;
 
     private String languageName;
     private String createdAt;

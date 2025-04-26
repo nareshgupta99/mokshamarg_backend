@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.MokshaMarg.entity.Guide;
 
 @Repository
-public interface GuideRepository extends JpaRepository<Guide, Long> {
+public interface GuideRepository extends JpaRepository<Guide, String> {
 
 }

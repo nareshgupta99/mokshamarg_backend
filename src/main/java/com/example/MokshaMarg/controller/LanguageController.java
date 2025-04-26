@@ -34,7 +34,7 @@ public class LanguageController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AbstractApiResponse<LanguageResponse>> getLanguageById(@PathVariable Long id) {
+    public ResponseEntity<AbstractApiResponse<LanguageResponse>> getLanguageById(@PathVariable String id) {
         AbstractApiResponse<LanguageResponse> response = languageService.getLanguageById(id);
         return ResponseEntity.ok(response);
     }

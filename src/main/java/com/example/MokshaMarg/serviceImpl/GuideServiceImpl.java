@@ -1,6 +1,7 @@
 package com.example.MokshaMarg.serviceImpl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class GuideServiceImpl implements GuideService {
 		Guide guide= new Guide();
 		guide.setLanguages(languages);
 		guide.setPrice(guideRequest.getPrice());
+		guide.setGuideId(UUID.randomUUID().toString());
 //		guide.setUser();
 		
 		
@@ -39,21 +41,21 @@ public class GuideServiceImpl implements GuideService {
 	}
 
 	@Override
-	public AbstractApiResponse<GuideResponse> getGuideById(Long id) {
+	public AbstractApiResponse<GuideResponse> getGuideById(String id) {
 		
 		
 		return null;
 	}
 
 	@Override
-	public AbstractApiResponse<GuideResponse> updateGuide(Long id, Guide guideRequest) {
+	public AbstractApiResponse<GuideResponse> updateGuide(String id, Guide guideRequest) {
 		
 		
 		return null;
 	}
 
 	@Override
-	public AbstractApiResponse<GuideResponse> deleteGuide(Long id) {
+	public AbstractApiResponse<GuideResponse> deleteGuide(String id) {
 		
 		
 		return null;
@@ -67,7 +69,7 @@ public class GuideServiceImpl implements GuideService {
 	}
 
 	@Override
-	public AbstractApiResponse<GuideResponse> updateStatus(Long id) {
+	public AbstractApiResponse<GuideResponse> updateStatus(String id) {
 		
 		return null;
 	}

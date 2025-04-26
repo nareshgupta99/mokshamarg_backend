@@ -3,6 +3,7 @@ package com.example.MokshaMarg.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,10 @@ public class FoodTypeServiceImpl implements FoodTypeService {
 	@Override
 	public void saveAllFoodType() {
 		FoodType food1 = new FoodType();
+		food1.setFoodTypeId(  UUID.randomUUID().toString());
 		food1.setName(FoodTypeEnum.VEG.name());
 		FoodType food2 = new FoodType();
+		food2.setFoodTypeId(  UUID.randomUUID().toString());
 		food2.setName(FoodTypeEnum.NON_VEG.name());
 		List<FoodType> list = new ArrayList<>();
 		list.add(food1);

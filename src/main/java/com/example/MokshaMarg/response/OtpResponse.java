@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OtpResponse {
 	
-	Long id;
+	String id;
 	String email;
 
 }

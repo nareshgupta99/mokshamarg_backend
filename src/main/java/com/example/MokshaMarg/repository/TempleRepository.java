@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.MokshaMarg.entity.Temple;
 
 @Repository
-public interface TempleRepository extends JpaRepository<Temple,Long> {
+public interface TempleRepository extends JpaRepository<Temple,String> {
 
 }

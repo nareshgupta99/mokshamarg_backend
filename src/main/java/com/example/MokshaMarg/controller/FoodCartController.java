@@ -45,13 +45,13 @@ public class FoodCartController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<AbstractApiResponse<FoodCartResponse>>  removeFromCartById(@PathVariable Long id){
+	public ResponseEntity<AbstractApiResponse<FoodCartResponse>>  removeFromCartById(@PathVariable String id){
 		AbstractApiResponse<FoodCartResponse> response = foodCartService.removeFromcart(id);
 		return new ResponseEntity<AbstractApiResponse<FoodCartResponse>>(response,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/remove-one/{id}")
-	public ResponseEntity<AbstractApiResponse<FoodCartResponse>>  removeQuantityFromCart(@PathVariable Long id){
+	public ResponseEntity<AbstractApiResponse<FoodCartResponse>>  removeQuantityFromCart(@PathVariable String id){
 		AbstractApiResponse<FoodCartResponse> response = foodCartService.removeQuantityFromCart(id);
 		return new ResponseEntity<AbstractApiResponse<FoodCartResponse>>(response,HttpStatus.OK);
 	}

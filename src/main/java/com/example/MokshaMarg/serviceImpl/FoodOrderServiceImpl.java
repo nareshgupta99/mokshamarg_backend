@@ -3,6 +3,7 @@ package com.example.MokshaMarg.serviceImpl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ import com.example.MokshaMarg.repository.FoodCartRepository;
 import com.example.MokshaMarg.repository.FoodOrderRepository;
 import com.example.MokshaMarg.repository.UserRepository;
 import com.example.MokshaMarg.response.AbstractApiResponse;
-import com.example.MokshaMarg.response.FoodCartResponse;
 import com.example.MokshaMarg.response.FoodOrderResponse;
 import com.example.MokshaMarg.service.FoodOrderService;
 import com.razorpay.Order;
@@ -59,7 +59,8 @@ public class FoodOrderServiceImpl implements FoodOrderService {
 		try {
 			RazorpayClient razorpayClient = new RazorpayClient(razorpayKey, razorpaySecret);
 			JSONObject orderRequest = new JSONObject();
-			orderRequest.put("amount", amount * 100); // amount in the smallest currency unit
+			orderRequest.put("amount", amount * 100);// amount in the smallest currency unit
+			System.out.println(amount*100);
 			orderRequest.put("currency", "INR");
 			orderRequest.put("receipt", "order_rcptid_11");
 			order = razorpayClient.orders.create(orderRequest);
@@ -72,6 +73,7 @@ public class FoodOrderServiceImpl implements FoodOrderService {
 			foodOrder.setUser(user);
 			foodOrder.setRazorpayOrderId(order.get("id"));
 			foodOrder.setRazorpayRecipt(order.get("receipt"));
+			foodOrder.setFoodOrderId(UUID.randomUUID().toString());
 ////			foodOrder.setPaymentStatus(order.get("status") == "Pen");
 //			
 //			List<CartItem> cartItems = user.getCart().getCartItems();
@@ -153,6 +155,7 @@ public class FoodOrderServiceImpl implements FoodOrderService {
 				item.setDishPriceSnapshot(cartItem.getDishPriceSnapshot());
 				item.setQuantity(cartItem.getQuantity());
 				item.setFoodCart(null);
+				item.setCartItemId(UUID.randomUUID().toString());
 				orderItems.add(item);
 			}
 			foodOrder.setItems(orderItems);

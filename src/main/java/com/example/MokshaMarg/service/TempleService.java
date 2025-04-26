@@ -12,11 +12,11 @@ public interface TempleService {
 	
 	public AbstractApiResponse<TempleResponse> addTemple(String temple, MultipartFile imageFile);
 	
-	public AbstractApiResponse<TempleResponse> delete(Long templeId);
+	public AbstractApiResponse<TempleResponse> delete(String templeId);
 	
 	public AbstractApiResponse<List<TempleResponse>> getAllTemple();
 	
-	public AbstractApiResponse<TempleResponse> getTempleById(Long id);
+	public AbstractApiResponse<TempleResponse> getTempleById(String id);
 
 	
 	

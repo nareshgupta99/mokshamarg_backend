@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DishResponse {
 	
-	private Long dishId;
+	private String dishId;
 
 	private String dishName;
 	

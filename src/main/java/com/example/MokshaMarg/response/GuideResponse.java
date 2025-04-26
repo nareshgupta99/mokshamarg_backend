@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GuideResponse {
 	
-    private Long guideId;
+    private String guideId;
 	private double price;
     private String imageUrl;
     private String createdAt;

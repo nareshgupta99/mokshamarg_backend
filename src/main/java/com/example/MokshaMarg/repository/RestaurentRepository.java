@@ -9,7 +9,7 @@ import com.example.MokshaMarg.entity.Restaurant;
 import com.example.MokshaMarg.entity.User;
 
 @Repository
-public interface RestaurentRepository extends JpaRepository<Restaurant, Long> {
+public interface RestaurentRepository extends JpaRepository<Restaurant, String> {
 
 	Optional<Restaurant> findByUser(User user);
 	

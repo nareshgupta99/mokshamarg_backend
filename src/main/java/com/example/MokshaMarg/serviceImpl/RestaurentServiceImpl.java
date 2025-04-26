@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class RestaurentServiceImpl implements RestaurantService {
 			restaurant.setLatitude(restaurantDto.getLatitude());
 			restaurant.setLongitude(restaurantDto.getLongitude());
 			restaurant.setName(restaurantDto.getName());
-
+//			restaurant.setRestaurantId(UUID.randomUUID().toString());
 //			 Upload image
 			@SuppressWarnings("unchecked")
 			Map<String, String> resp = cloudinaryUploader.uploadFile(imageFile);
@@ -118,7 +119,7 @@ public class RestaurentServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public AbstractApiResponse<RestaurentResponse> getRestaurantById(Long id) {
+	public AbstractApiResponse<RestaurentResponse> getRestaurantById(String id) {
 
 		Restaurant restaurant = restaurentRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundExcepton(id.toString(), "Requested resourse not found"));
@@ -131,7 +132,7 @@ public class RestaurentServiceImpl implements RestaurantService {
 
 	@Override
 	@Transactional
-	public AbstractApiResponse<RestaurentResponse> updateRestaurant(Long id, Restaurant restaurant) {
+	public AbstractApiResponse<RestaurentResponse> updateRestaurant(String id, Restaurant restaurant) {
 
 		List<FoodType> savedFoodTypes = new ArrayList<FoodType>();
 		for (FoodType ft : restaurant.getFoodTypes()) {
@@ -159,13 +160,13 @@ public class RestaurentServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public AbstractApiResponse<RestaurentResponse> deleteRestaurant(Long id) {
+	public AbstractApiResponse<RestaurentResponse> deleteRestaurant(String id) {
 
 		return null;
 	}
 
 	@Override
-	public AbstractApiResponse<RestaurentResponse> updateRestaurentUpdateStatus(Boolean open, Long id) {
+	public AbstractApiResponse<RestaurentResponse> updateRestaurentUpdateStatus(Boolean open, String id) {
 		Restaurant restaurant = restaurentRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundExcepton(id.toString(), "Requested Resource Not found"));
 		restaurant.setOpen(open);

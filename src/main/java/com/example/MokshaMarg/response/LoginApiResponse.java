@@ -11,7 +11,7 @@ public class LoginApiResponse {
 
 
 
-	private Long userId;
+	private String userId;
 
 	private String name;
 
@@ -25,6 +25,6 @@ public class LoginApiResponse {
 	
 	private String token;
 	
-	private Long restaurantId;
+	private String restaurantId;
 
 }

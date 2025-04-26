@@ -2,15 +2,10 @@ package com.example.MokshaMarg.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.MokshaMarg.util.PaymentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -27,8 +22,7 @@ import lombok.NoArgsConstructor;
 public class FoodOrder {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long foodOrderId;
+    private String foodOrderId;
 
     private LocalDateTime orderDate;
 

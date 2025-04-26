@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TempleResponse {
 	
-	private Long id;
+	private String id;
 	
 	private String name;
 	

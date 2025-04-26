@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FoodOrderResponse {
-	private Long foodOrderId;
+	private String foodOrderId;
 
     private LocalDateTime orderDate;
 

@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class PaymentVerificationDto {
 
-	private Long orderId;
+	private String orderId;
 
 	private String paymentId;
 

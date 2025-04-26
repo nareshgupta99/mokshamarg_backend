@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -21,8 +19,7 @@ import lombok.Data;
 public class Guide {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long guideId;
+	private String guideId;
 	
 	private double price;
     private String imageUrl;

@@ -46,14 +46,14 @@ public class RestaurantController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> getRestaurantById(@PathVariable Long id) {
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> getRestaurantById(@PathVariable String id) {
 		AbstractApiResponse<RestaurentResponse> restaurant = restaurantService.getRestaurantById(id);
 		return restaurant != null ? new ResponseEntity<>(restaurant, HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> updateRestaurant(@PathVariable Long id,
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> updateRestaurant(@PathVariable String id,
 			@RequestBody Restaurant updatedRestaurant) {
 		AbstractApiResponse<RestaurentResponse> response = restaurantService.updateRestaurant(id, updatedRestaurant);
 		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)
@@ -61,14 +61,14 @@ public class RestaurantController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> deleteRestaurant(@PathVariable Long id) {
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> deleteRestaurant(@PathVariable String id) {
 		AbstractApiResponse<RestaurentResponse> response = restaurantService.deleteRestaurant(id);
 		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)
 				: new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@PutMapping("/update/opening-status/{id}")
-	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> updateRestaurentUpdateStatus(@PathVariable Long id,
+	public ResponseEntity<AbstractApiResponse<RestaurentResponse>> updateRestaurentUpdateStatus(@PathVariable String id,
 			@RequestBody Restaurant restaurant) {
 		AbstractApiResponse<RestaurentResponse> response = restaurantService.updateRestaurentUpdateStatus( restaurant.isOpen(),id);
 		return response.isStatus() ? new ResponseEntity<>(response, HttpStatus.OK)

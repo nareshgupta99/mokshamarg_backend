@@ -1,6 +1,7 @@
 package com.example.MokshaMarg.serviceImpl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class LanguageServiceImpl implements LanguageService {
 
 	@Override
 	public AbstractApiResponse<LanguageResponse> createLanguage(Language request) {
-
+	
+		request.setLanguageId(UUID.randomUUID().toString());
 		Language savedLanguage = languageRepository.save(request);
 		LanguageResponse languageResponse = modelMapper.map(savedLanguage, LanguageResponse.class);
 
@@ -34,7 +36,7 @@ public class LanguageServiceImpl implements LanguageService {
 	}
 
 	@Override
-	public AbstractApiResponse<LanguageResponse> getLanguageById(Long id) {
+	public AbstractApiResponse<LanguageResponse> getLanguageById(String id) {
 
 		Language savedLanguage = languageRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundExcepton("id", "requested language not present"));

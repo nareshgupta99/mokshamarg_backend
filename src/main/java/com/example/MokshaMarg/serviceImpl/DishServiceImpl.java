@@ -3,6 +3,7 @@ package com.example.MokshaMarg.serviceImpl;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +57,8 @@ public class DishServiceImpl implements DishService {
 
 	@Override
 	@Transactional
-	public AbstractApiResponse<DishResponse> addDish(String dishJson, MultipartFile imageFile, Long restaurantId) {
+	public AbstractApiResponse<DishResponse> addDish(String dishJson, MultipartFile imageFile) {
 		AbstractApiResponse<DishResponse> abstractResponse = null;
-		System.out.println("res=="+restaurantId);
-
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
 			DishDto dishDto = objectMapper.readValue(dishJson, DishDto.class);
@@ -71,8 +70,9 @@ public class DishServiceImpl implements DishService {
 			Map<String, String> resp = cloudinaryUploader.uploadFile(imageFile);
 			dish.setImage(resp.get("url"));
 			dish.setPublicId(resp.get("public_id"));
+			dish.setDishId(UUID.randomUUID().toString());;
 			
-			System.out.println("rest::"+restaurantId);
+		
 			System.out.println("food types::"+dishDto.getFoodTypes());
 			FoodType foodType = foodTypeRepository.findByName(dishDto.getFoodTypes()).orElseThrow(()->new ResourceNotFoundExcepton("id","resource not found"));
 				
@@ -117,10 +117,10 @@ public class DishServiceImpl implements DishService {
 		return abstractApiResponse;
 	}
 	
-	public AbstractApiResponse<List<DishResponse>> getAllDishByRestaurant( Long id){
+	public AbstractApiResponse<List<DishResponse>> getAllDishByRestaurant( String id){
 		
 		List<Dish> dish = dishRepository.findAll();
-	List<Dish> filterDish =	dish.stream().filter((d)-> d.getRestaurant().getRestaurantId() == id ).toList();
+	List<Dish> filterDish =	dish.stream().filter((d)-> d.getRestaurant().getRestaurantId().equals( id) ).toList();
 	List<DishResponse> dishResponses = filterDish.stream().map((d) -> modelMapper.map(d, DishResponse.class)).toList();
 		AbstractApiResponse<List<DishResponse>> abstractApiResponse = new AbstractApiResponse<List<DishResponse>>(true,
 				"success", dishResponses);
@@ -128,7 +128,7 @@ public class DishServiceImpl implements DishService {
 	}
 
 	@Override
-	public AbstractApiResponse<DishResponse> getDishById(Long id) {
+	public AbstractApiResponse<DishResponse> getDishById(String id) {
 		Dish dish = dishRepository.findById(id).orElseThrow();
 		DishResponse dishResponse = modelMapper.map(dish, DishResponse.class);
 		AbstractApiResponse<DishResponse> abstractResponse = new AbstractApiResponse<DishResponse>(true,
@@ -137,13 +137,13 @@ public class DishServiceImpl implements DishService {
 	}
 
 	@Override
-	public AbstractApiResponse<DishResponse> updateDish(Long restaurentId, Dish updatedDish, Long dishId) {
+	public AbstractApiResponse<DishResponse> updateDish(String restaurentId, Dish updatedDish, String dishId) {
 
 		return null;
 	}
 
 	@Override
-	public AbstractApiResponse<DishResponse> deleteDish(Long dishId) {
+	public AbstractApiResponse<DishResponse> deleteDish(String dishId) {
 		Dish dish = dishRepository.findById(dishId).orElseThrow();
 		dish.setRestaurant(null);
 		dish.setFoodTypes(null);
@@ -160,14 +160,14 @@ public class DishServiceImpl implements DishService {
 	}
 
 	@Override
-	public AbstractApiResponse<DishResponse> updateDishStatus(Long DishId, String status) {
+	public AbstractApiResponse<DishResponse> updateDishStatus(String DishId, String status) {
 
 		return null;
 	}
 
 	@Override
 	@Transactional
-	public AbstractApiResponse<DishResponse> updateImage(Long dishId, MultipartFile imageFile) {
+	public AbstractApiResponse<DishResponse> updateImage(String dishId, MultipartFile imageFile) {
 
 		AbstractApiResponse<DishResponse> abstractApiResponse = null;
 		try {

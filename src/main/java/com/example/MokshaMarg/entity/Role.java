@@ -10,7 +10,7 @@ import lombok.Data;
 public class Role {
 	
 
-	private Long roleId;
+	private String roleId;
 	
 	@Enumerated(EnumType.STRING)
     private RoleName roleName;

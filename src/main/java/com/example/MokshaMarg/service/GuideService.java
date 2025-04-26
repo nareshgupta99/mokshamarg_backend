@@ -11,13 +11,13 @@ public interface GuideService {
 
     AbstractApiResponse<GuideResponse> createGuide(GuideDto guideRequest);
 
-    AbstractApiResponse<GuideResponse> getGuideById(Long id);
+    AbstractApiResponse<GuideResponse> getGuideById(String id);
 
-    AbstractApiResponse<GuideResponse> updateGuide(Long id, Guide guideRequest);
+    AbstractApiResponse<GuideResponse> updateGuide(String id, Guide guideRequest);
 
-    AbstractApiResponse<GuideResponse> deleteGuide(Long id);
+    AbstractApiResponse<GuideResponse> deleteGuide(String id);
 
     AbstractApiResponse<List<GuideResponse>> getAllGuides();
     
-    AbstractApiResponse<GuideResponse> updateStatus(Long id);
+    AbstractApiResponse<GuideResponse> updateStatus(String id);
 }

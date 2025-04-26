@@ -28,11 +28,11 @@ public class DishController {
 	@Autowired
 	private DishService dishService;
 
-	@PostMapping(value = "/add/restaurant/{id}", consumes = "multipart/form-data")
+	@PostMapping(value = "/add/restaurant", consumes = "multipart/form-data")
 	public ResponseEntity<AbstractApiResponse<DishResponse>> addDish(@RequestPart("dish") String dish,
-			@RequestPart(value = "image", required = false) MultipartFile imageFile, @PathVariable Long id) {
+			@RequestPart(value = "image", required = false) MultipartFile imageFile) {
 
-		AbstractApiResponse<DishResponse> abstractApiResponse = dishService.addDish(dish, imageFile, id);
+		AbstractApiResponse<DishResponse> abstractApiResponse = dishService.addDish(dish, imageFile);
 		return new ResponseEntity<>(abstractApiResponse, HttpStatus.CREATED);
 	}
 
@@ -44,13 +44,13 @@ public class DishController {
 	}
 
 	@GetMapping("/restaurant/{id}")
-	public ResponseEntity<AbstractApiResponse<List<DishResponse>>> getAllDishByRestaurant(@PathVariable Long id) {
+	public ResponseEntity<AbstractApiResponse<List<DishResponse>>> getAllDishByRestaurant(@PathVariable String id) {
 		AbstractApiResponse<List<DishResponse>> abstractApiResponse = dishService.getAllDishByRestaurant(id);
 		return new ResponseEntity<>(abstractApiResponse, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<AbstractApiResponse<DishResponse>> getDishById(@PathVariable Long id) {
+	public ResponseEntity<AbstractApiResponse<DishResponse>> getDishById(@PathVariable String id) {
 
 		AbstractApiResponse<DishResponse> abstractApiResponse = dishService.getDishById(id);
 		return new ResponseEntity<>(abstractApiResponse, HttpStatus.OK);
@@ -58,7 +58,7 @@ public class DishController {
 	}
 
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<AbstractApiResponse<DishResponse>> updateDish(@PathVariable Long id,
+	public ResponseEntity<AbstractApiResponse<DishResponse>> updateDish(@PathVariable String id,
 			@RequestBody Restaurant updatedRestaurant) {
 
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -66,14 +66,14 @@ public class DishController {
 
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<AbstractApiResponse<DishResponse>> deleteRestaurant(@PathVariable Long id) {
+	public ResponseEntity<AbstractApiResponse<DishResponse>> deleteRestaurant(@PathVariable String id) {
 
 		AbstractApiResponse<DishResponse> abstractApiResponse = dishService.deleteDish(id);
 		return new ResponseEntity<>(abstractApiResponse, HttpStatus.OK);
 	}
 
 	@PutMapping("/update/opening-status/{id}")
-	public ResponseEntity<AbstractApiResponse<DishResponse>> updateDishStatus(@PathVariable Long id,
+	public ResponseEntity<AbstractApiResponse<DishResponse>> updateDishStatus(@PathVariable String id,
 			@RequestBody String status) {
 
 		AbstractApiResponse<DishResponse> abstractApiResponse = dishService.updateDishStatus(id, status);
@@ -82,7 +82,7 @@ public class DishController {
 	}
 
 	@PutMapping("/update/dish/image/{id}")
-	public ResponseEntity<AbstractApiResponse<DishResponse>> updateImage(@PathVariable Long id,
+	public ResponseEntity<AbstractApiResponse<DishResponse>> updateImage(@PathVariable String id,
 			@RequestPart(value = "image", required = true) MultipartFile imageFile) {
 
 		AbstractApiResponse<DishResponse> abstractApiResponse = dishService.updateImage(id, imageFile);

@@ -3,6 +3,7 @@ package com.example.MokshaMarg.serviceImpl;
 import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,6 +51,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 			String encryptedPass = passwordEncoder.encode(user.getPassword());
 			user.setPassword(encryptedPass);
+			user.setUserId(UUID.randomUUID().toString());
 			userRepo.save(user);
 			return new AbstractApiResponse(false, "User registered successfully", Collections.emptyMap());
 		}

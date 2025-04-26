@@ -10,7 +10,7 @@ import com.example.MokshaMarg.entity.User;
 
 
 @Repository
-public interface FoodCartRepository extends JpaRepository<FoodCart, Long> {
+public interface FoodCartRepository extends JpaRepository<FoodCart, String> {
 	
 	Optional<FoodCart> findByUser(User user);
 

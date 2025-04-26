@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurentResponse {
-	private Long restaurantId;
+	private String restaurantId;
 
 	private String name;
 	private String address;

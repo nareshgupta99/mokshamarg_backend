@@ -2,6 +2,7 @@ package com.example.MokshaMarg.serviceImpl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,7 @@ public class TempleServiceImpl implements TempleService {
 			temple.setImage(resp.get("url"));
 			temple.setPublicId(resp.get("public_id"));
 			temple.setStreetAddress(templeDto.getStreetAddress());
+			temple.setId(UUID.randomUUID().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,7 +64,7 @@ public class TempleServiceImpl implements TempleService {
 	}
 
 	@Override
-	public AbstractApiResponse<TempleResponse> delete(Long templeId) {
+	public AbstractApiResponse<TempleResponse> delete(String templeId) {
 		Temple existingTemple = templeRepository.findById(templeId)
 				.orElseThrow(() -> new RuntimeException("Resourse not found"));
 		TempleResponse templeResponse = new TempleResponse();
@@ -98,7 +100,7 @@ public class TempleServiceImpl implements TempleService {
 	}
 
 	@Override
-	public AbstractApiResponse<TempleResponse> getTempleById(Long id) {
+	public AbstractApiResponse<TempleResponse> getTempleById(String id) {
 		Temple existingTemple = templeRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("temple not found"));
 		TempleResponse templeResponse = new TempleResponse();

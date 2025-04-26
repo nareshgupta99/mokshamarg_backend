@@ -33,7 +33,7 @@ public class TempleController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<AbstractApiResponse<TempleResponse>> delete(@PathVariable Long id) {
+	public ResponseEntity<AbstractApiResponse<TempleResponse>> delete(@PathVariable String id) {
 		AbstractApiResponse<TempleResponse> templeResponse = templeService.delete(id);
 		return new ResponseEntity<AbstractApiResponse<TempleResponse>>(templeResponse, HttpStatus.OK);
 	}
@@ -45,7 +45,7 @@ public class TempleController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<AbstractApiResponse<TempleResponse>> getTempleById(@PathVariable Long id) {
+	public ResponseEntity<AbstractApiResponse<TempleResponse>> getTempleById(@PathVariable String id) {
 		AbstractApiResponse<TempleResponse> templeResponse = templeService.getTempleById(id);
 		return new ResponseEntity<AbstractApiResponse<TempleResponse>>(templeResponse, HttpStatus.OK);
 	}

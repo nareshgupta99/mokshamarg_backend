@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LanguageResponse {
 	
-	private Long languageId;
+	private String languageId;
 
     private String languageName;
 

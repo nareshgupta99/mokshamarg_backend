@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.MokshaMarg.entity.FoodType;
 
 @Repository
-public interface FoodTypeRepository extends JpaRepository<FoodType,Long > {
+public interface FoodTypeRepository extends JpaRepository<FoodType,String > {
 	
 	Optional<FoodType> findByName(String name); 
 

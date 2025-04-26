@@ -10,14 +10,14 @@ public interface FoodCartService {
 
 	AbstractApiResponse<FoodCartResponse> addItemToCart(CartItemDto cartItemDto);
 
-	AbstractApiResponse<FoodCartResponse> getCartById(Long cartId);
+	AbstractApiResponse<FoodCartResponse> getCartById(String cartId);
 
-	AbstractApiResponse<FoodCartResponse> removeFromcart(Long cartItemId);
+	AbstractApiResponse<FoodCartResponse> removeFromcart(String cartItemId);
 
 	AbstractApiResponse<List<FoodCartResponse>> getAllItemFromCart();
 
 	AbstractApiResponse<List<FoodCartResponse>> removeAllFromCart();
 
-	AbstractApiResponse<FoodCartResponse> removeQuantityFromCart(Long id);
+	AbstractApiResponse<FoodCartResponse> removeQuantityFromCart(String id);
 
 }
