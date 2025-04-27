@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.example.MokshaMarg.dto.GuideDto;
 import com.example.MokshaMarg.entity.Guide;
 import com.example.MokshaMarg.response.AbstractApiResponse;
 import com.example.MokshaMarg.response.GuideResponse;
@@ -26,9 +27,10 @@ public class GuideController {
     @Autowired
     private GuideService guideService;
 
-    @PostMapping
-    public ResponseEntity<AbstractApiResponse<GuideResponse>> createGuide(@RequestBody GuideDto guideRequest) {
-        AbstractApiResponse<GuideResponse> response = guideService.createGuide(guideRequest);
+    @PostMapping(value = "/register", consumes = "multipart/form-data")
+    public ResponseEntity<AbstractApiResponse<GuideResponse>> createGuide(@RequestPart("guide") String guide,
+    		@RequestPart(value = "image", required = false) MultipartFile imageFile) {
+        AbstractApiResponse<GuideResponse> response = guideService.createGuide(guide,imageFile);
         return ResponseEntity.ok(response);
     }
 

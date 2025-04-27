@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<AbstractApiResponse> handleInvalidCredentials(InvalidCredentialsException ex) {
-        return new ResponseEntity<AbstractApiResponse>(new AbstractApiResponse(false, ex.getMessage(), Collections.emptyMap()), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<AbstractApiResponse>(new AbstractApiResponse(false, ex.getMessage(), Collections.emptyMap()), HttpStatus.NOT_FOUND);
     }
     
 

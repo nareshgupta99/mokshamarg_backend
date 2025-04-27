@@ -1,6 +1,6 @@
 package com.example.MokshaMarg.response;
 
-import java.util.Set;
+import java.util.List;
 
 import com.example.MokshaMarg.entity.Language;
 import com.example.MokshaMarg.entity.User;
@@ -18,7 +18,6 @@ public class GuideResponse {
 	private double price;
     private String imageUrl;
     private String createdAt;
-    private User user;
-    private Set<Language> languages;
+    private List<Language> languages;
 
 }

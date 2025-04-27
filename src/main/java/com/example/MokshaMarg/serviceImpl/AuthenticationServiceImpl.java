@@ -53,7 +53,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			user.setPassword(encryptedPass);
 			user.setUserId(UUID.randomUUID().toString());
 			userRepo.save(user);
-			return new AbstractApiResponse(false, "User registered successfully", Collections.emptyMap());
+			return new AbstractApiResponse(true, "User registered successfully", Collections.emptyMap());
 		}
 
 		else {

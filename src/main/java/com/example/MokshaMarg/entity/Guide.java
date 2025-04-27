@@ -37,5 +37,10 @@ public class Guide {
     )
     private List<Language> languages;
 
+	public void setUser(User user) {
+		this.user = user;
+		
+	}
+
 
 }

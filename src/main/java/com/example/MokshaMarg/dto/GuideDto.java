@@ -1,6 +1,8 @@
 package com.example.MokshaMarg.dto;
 
-import java.util.Set;
+import java.util.List;
+
+import com.example.MokshaMarg.entity.Language;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +19,5 @@ public class GuideDto {
     private String imageUrl;
     private String createdAt;
      
-    private Set<String> languages;
+    private List<String> languages;
 }
